@@ -1,0 +1,2527 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Callisto</name>
+    </assembly>
+    <members>
+        <member name="T:Callisto.Controls.Common.InteractionHelper">
+            <summary>
+            The InteractionHelper provides controls with support for all of the
+            common interactions like mouse movement, mouse clicks, key presses,
+            etc., and also incorporates proper event semantics when the control is
+            disabled.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.InteractionHelper.SequentialClickThresholdInMilliseconds">
+            <summary>
+            The threshold used to determine whether two clicks are temporally
+            local and considered a double click (or triple, quadruple, etc.).
+            500 milliseconds is the default double click value on Windows.
+            This value would ideally be pulled form the system settings.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.InteractionHelper.SequentialClickThresholdInPixelsSquared">
+            <summary>
+            The threshold used to determine whether two clicks are spatially
+            local and considered a double click (or triple, quadruple, etc.)
+            in pixels squared.  We use pixels squared so that we can compare to
+            the distance delta without taking a square root.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.InteractionHelper._updateVisualState">
+            <summary>
+            Reference used to call UpdateVisualState on the base class.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.#ctor(Windows.UI.Xaml.Controls.Control)">
+            <summary>
+            Initializes a new instance of the InteractionHelper class.
+            </summary>
+            <param name="control">Control receiving interaction.</param>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.UpdateVisualState(System.Boolean)">
+            <summary>
+            Update the visual state of the control.
+            </summary>
+            <param name="useTransitions">
+            A value indicating whether to automatically generate transitions to
+            the new state, or instantly transition to the new state.
+            </param>
+            <remarks>
+            UpdateVisualState works differently than the rest of the injected
+            functionality.  Most of the other events are overridden by the
+            calling class which calls Allow, does what it wants, and then calls
+            Base.  UpdateVisualState is the opposite because a number of the
+            methods in InteractionHelper need to trigger it in the calling
+            class.  We do this using the IUpdateVisualState internal interface.
+            </remarks>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.UpdateVisualStateBase(System.Boolean)">
+            <summary>
+            Update the visual state of the control.
+            </summary>
+            <param name="useTransitions">
+            A value indicating whether to automatically generate transitions to
+            the new state, or instantly transition to the new state.
+            </param>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.OnLoaded(System.Object,Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            Handle the control's Loaded event.
+            </summary>
+            <param name="sender">The control.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.OnIsEnabledChanged(System.Object,Windows.UI.Xaml.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Handle changes to the control's IsEnabled property.
+            </summary>
+            <param name="sender">The control.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.OnIsReadOnlyChanged(System.Boolean)">
+            <summary>
+            Handles changes to the control's IsReadOnly property.
+            </summary>
+            <param name="value">The value of the property.</param>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.OnApplyTemplateBase">
+            <summary>
+            Update the visual state of the control when its template is changed.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.AllowGotFocus(Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            Check if the control's GotFocus event should be handled.
+            </summary>
+            <param name="e">Event arguments.</param>
+            <returns>
+            A value indicating whether the event should be handled.
+            </returns>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.OnGotFocusBase">
+            <summary>
+            Base implementation of the virtual GotFocus event handler.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.AllowLostFocus(Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            Check if the control's LostFocus event should be handled.
+            </summary>
+            <param name="e">Event arguments.</param>
+            <returns>
+            A value indicating whether the event should be handled.
+            </returns>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.OnLostFocusBase">
+            <summary>
+            Base implementation of the virtual LostFocus event handler.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.AllowPointerEnter(Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            Check if the control's MouseEnter event should be handled.
+            </summary>
+            <param name="e">Event arguments.</param>
+            <returns>
+            A value indicating whether the event should be handled.
+            </returns>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.OnPointerEnterBase">
+            <summary>
+            Base implementation of the virtual MouseEnter event handler.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.AllowPointerExit(Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            Check if the control's MouseLeave event should be handled.
+            </summary>
+            <param name="e">Event arguments.</param>
+            <returns>
+            A value indicating whether the event should be handled.
+            </returns>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.OnPointerExitBase">
+            <summary>
+            Base implementation of the virtual PointerExit event handler.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.AllowPointerPressed(Windows.UI.Xaml.Input.PointerRoutedEventArgs)">
+            <summary>
+            Check if the control's PointerPressed event should be handled.
+            </summary>
+            <param name="e">Event arguments.</param>
+            <returns>
+            A value indicating whether the event should be handled.
+            </returns>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.OnPointerPressedBase">
+            <summary>
+            Base implementation of the virtual PointerPressedBase event
+            handler.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.AllowPointerReleased(Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            Check if the control's PointerReleased event should be handled.
+            </summary>
+            <param name="e">Event arguments.</param>
+            <returns>
+            A value indicating whether the event should be handled.
+            </returns>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.OnPointerReleasedBase">
+            <summary>
+            Base implementation of the virtual MouseLeftButtonUp event handler.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.AllowKeyDown(Windows.UI.Xaml.Input.KeyRoutedEventArgs)">
+            <summary>
+            Check if the control's KeyDown event should be handled.
+            </summary>
+            <param name="e">Event arguments.</param>
+            <returns>
+            A value indicating whether the event should be handled.
+            </returns>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.AllowKeyUp(Windows.UI.Xaml.Input.KeyRoutedEventArgs)">
+            <summary>
+            Check if the control's KeyUp event should be handled.
+            </summary>
+            <param name="e">Event arguments.</param>
+            <returns>
+            A value indicating whether the event should be handled.
+            </returns>
+        </member>
+        <member name="M:Callisto.Controls.Common.InteractionHelper.GetLogicalKey(Windows.UI.Xaml.FlowDirection,Windows.System.VirtualKey)">
+            <summary>
+            Translates keys for proper RightToLeft mode support.
+            </summary>
+            <param name="flowDirection">Control's flow direction mode.</param>
+            <param name="originalKey">Original key.</param>
+            <returns>
+            A translated key code, indicating how the original key should be interpreted.
+            </returns>
+        </member>
+        <member name="P:Callisto.Controls.Common.InteractionHelper.Control">
+            <summary>
+            Gets the control the InteractionHelper is targeting.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.Common.InteractionHelper.IsFocused">
+            <summary>
+            Gets a value indicating whether the control has focus.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.Common.InteractionHelper.IsPointerOver">
+            <summary>
+            Gets a value indicating whether the mouse is over the control.
+            </summary> 
+        </member>
+        <member name="P:Callisto.Controls.Common.InteractionHelper.IsPointerExited">
+            <summary>
+            Gets a value indicating whether the mouse has exited the control.
+            </summary> 
+        </member>
+        <member name="P:Callisto.Controls.Common.InteractionHelper.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the read-only property is set.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.Common.InteractionHelper.IsPointerPressed">
+            <summary>
+            Gets a value indicating whether the mouse button is pressed down
+            over the control.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.Common.InteractionHelper.LastClickTime">
+            <summary>
+            Gets or sets the last time the control was clicked.
+            </summary>
+            <remarks>
+            The value is stored as Utc time because it is slightly more
+            performant than converting to local time.
+            </remarks>
+        </member>
+        <member name="P:Callisto.Controls.Common.InteractionHelper.LastClickPosition">
+            <summary>
+            Gets or sets the mouse position of the last click.
+            </summary>
+            <remarks>The value is relative to the control.</remarks>
+        </member>
+        <member name="P:Callisto.Controls.Common.InteractionHelper.ClickCount">
+            <summary>
+            Gets the number of times the control was clicked.
+            </summary>
+        </member>
+        <member name="T:Callisto.Controls.Common.ItemsControlHelper">
+            <summary>
+            The ItemContainerGenerator provides useful utilities for ItemsControls.
+            </summary>
+            <QualityBand>Preview</QualityBand>
+        </member>
+        <member name="F:Callisto.Controls.Common.ItemsControlHelper._itemsHost">
+            <summary>
+            A Panel that is used as the ItemsHost of the ItemsControl.  This
+            property will only be valid when the ItemsControl is live in the
+            tree and has generated containers for some of its items.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.ItemsControlHelper._scrollHost">
+            <summary>
+            A ScrollViewer that is used to scroll the items in the ItemsHost.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Common.ItemsControlHelper.#ctor(Windows.UI.Xaml.Controls.ItemsControl)">
+            <summary>
+            Initializes a new instance of the ItemContainerGenerator.
+            </summary>
+            <param name="control">
+            The ItemsControl being tracked by the ItemContainerGenerator.
+            </param>
+        </member>
+        <member name="M:Callisto.Controls.Common.ItemsControlHelper.OnApplyTemplate">
+            <summary>
+            Apply a control template to the ItemsControl.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Common.ItemsControlHelper.PrepareContainerForItemOverride(Windows.UI.Xaml.DependencyObject,Windows.UI.Xaml.Style)">
+            <summary>
+            Prepares the specified container to display the specified item.
+            </summary>
+            <param name="element">
+            Container element used to display the specified item.
+            </param>
+            <param name="parentItemContainerStyle">
+            The ItemContainerStyle for the parent ItemsControl.
+            </param>
+        </member>
+        <member name="M:Callisto.Controls.Common.ItemsControlHelper.UpdateItemContainerStyle(Windows.UI.Xaml.Style)">
+            <summary>
+            Update the style of any generated items when the ItemContainerStyle
+            has been changed.
+            </summary>
+            <param name="itemContainerStyle">The ItemContainerStyle.</param>
+            <remarks>
+            Silverlight does not support setting a Style multiple times, so we
+            only attempt to set styles on elements whose style hasn't already
+            been set.
+            </remarks>
+        </member>
+        <member name="M:Callisto.Controls.Common.ItemsControlHelper.ScrollIntoView(Windows.UI.Xaml.FrameworkElement)">
+            <summary>
+            Scroll the desired element into the ScrollHost's viewport.
+            </summary>
+            <param name="element">Element to scroll into view.</param>
+        </member>
+        <member name="P:Callisto.Controls.Common.ItemsControlHelper.ItemsControl">
+            <summary>
+            Gets or sets the ItemsControl being tracked by the
+            ItemContainerGenerator.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.Common.ItemsControlHelper.ItemsHost">
+            <summary>
+            Gets a Panel that is used as the ItemsHost of the ItemsControl.
+            This property will only be valid when the ItemsControl is live in
+            the tree and has generated containers for some of its items.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.Common.ItemsControlHelper.ScrollHost">
+            <summary>
+            Gets a ScrollViewer that is used to scroll the items in the
+            ItemsHost.
+            </summary>
+        </member>
+        <member name="T:Callisto.Controls.Common.IUpdateVisualState">
+            <summary>
+            The IUpdateVisualState interface is used to provide the
+            InteractionHelper with access to the type's UpdateVisualState method.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Common.IUpdateVisualState.UpdateVisualState(System.Boolean)">
+            <summary>
+            Update the visual state of the control.
+            </summary>
+            <param name="useTransitions">
+            A value indicating whether to automatically generate transitions to
+            the new state, or instantly transition to the new state.
+            </param>
+        </member>
+        <member name="T:Callisto.Controls.Common.VisualStates">
+            <summary>
+            Names and helpers for visual states in the controls.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.GroupCommon">
+            <summary>
+            Common state group.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.StateNormal">
+            <summary>
+            Normal state of the Common state group.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.StateReadOnly">
+            <summary>
+            Normal state of the Common state group.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.StatePointerOver">
+            <summary>
+            MouseOver state of the Common state group.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.StatePointerPressed">
+            <summary>
+            Pressed state of the Common state group.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.StatePointerExited">
+            <summary>
+            Exited state of the Common state group.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.StateDisabled">
+            <summary>
+            Disabled state of the Common state group.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.GroupFocus">
+            <summary>
+            Focus state group.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.StateUnfocused">
+            <summary>
+            Unfocused state of the Focus state group.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.StateFocused">
+            <summary>
+            Focused state of the Focus state group.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.StateActive">
+            <summary>
+            Active state.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.StateInactive">
+            <summary>
+            Inactive state.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.GroupActive">
+            <summary>
+            Active state group.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.StateVisible">
+            <summary>
+            Visible state name for BusyIndicator.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.StateHidden">
+            <summary>
+            Hidden state name for BusyIndicator.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.GroupVisibility">
+            <summary>
+            BusyDisplay group.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.StateUnwatermarked">
+            <summary>
+            Non-watermarked state.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.StateWatermarked">
+            <summary>
+            Watermarked state.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Common.VisualStates.GroupWatermark">
+            <summary>
+            Watermark state group.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Common.VisualStates.GoToState(Windows.UI.Xaml.Controls.Control,System.Boolean,System.String[])">
+            <summary>
+            Use VisualStateManager to change the visual state of the control.
+            </summary>
+            <param name="control">
+            Control whose visual state is being changed.
+            </param>
+            <param name="useTransitions">
+            A value indicating whether to use transitions when updating the
+            visual state, or to snap directly to the new visual state.
+            </param>
+            <param name="stateNames">
+            Ordered list of state names and fallback states to transition into.
+            Only the first state to be found will be used.
+            </param>
+        </member>
+        <member name="M:Callisto.Controls.Common.VisualStates.GetImplementationRoot(Windows.UI.Xaml.DependencyObject)">
+            <summary>
+            Gets the implementation root of the Control.
+            </summary>
+            <param name="dependencyObject">The DependencyObject.</param>
+            <remarks>
+            Implements Silverlight's corresponding internal property on Control.
+            </remarks>
+            <returns>Returns the implementation root or null.</returns>
+        </member>
+        <member name="M:Callisto.Controls.Common.VisualStates.TryGetVisualStateGroup(Windows.UI.Xaml.DependencyObject,System.String)">
+            <summary>
+            This method tries to get the named VisualStateGroup for the 
+            dependency object. The provided object's ImplementationRoot will be 
+            looked up in this call.
+            </summary>
+            <param name="dependencyObject">The dependency object.</param>
+            <param name="groupName">The visual state group's name.</param>
+            <returns>Returns null or the VisualStateGroup object.</returns>
+        </member>
+        <member name="T:Callisto.Controls.DynamicTextBlock">
+            <summary>
+            A simple text control that truncates the text to ellipses when there
+            is insufficient room to display all of the text.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.DynamicTextBlock.textBlock">
+            <summary>
+            A TextBlock that gets set as the control's content and is ultiately the control 
+            that displays our text
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.DynamicTextBlock.#ctor">
+            <summary>
+            Initializes a new instance of the DynamicTextBlock class
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.DynamicTextBlock.MeasureOverride(Windows.Foundation.Size)">
+            <summary>
+            Handles the measure part of the measure and arrange layout process. During this process
+            we measure the textBlock that we've created as content with increasingly smaller amounts
+            of text until we find text that fits.
+            </summary>
+            <param name="availableSize">the available size</param>
+            <returns>the base implementation of Measure</returns>
+        </member>
+        <member name="M:Callisto.Controls.DynamicTextBlock.ReduceText(System.String)">
+            <summary>
+            Reduces the length of the text. Derived classes can override this to use different techniques 
+            for reducing the text length.
+            </summary>
+            <param name="text">the original text</param>
+            <returns>the reduced length text</returns>
+        </member>
+        <member name="P:Callisto.Controls.DynamicTextBlock.Text">
+            <summary>
+            Gets or sets the Text DependencyProperty. This is the text that will be displayed.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.DynamicTextBlock.TextWrapping">
+            <summary>
+            Gets or sets the TextWrapping property. This corresponds to TextBlock.TextWrapping.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.DynamicTextBlock.LineHeight">
+            <summary>
+            Gets or sets the LineHeight property. This property corresponds to TextBlock.LineHeight;
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.DynamicTextBlock.LineStackingStrategy">
+            <summary>
+            Gets or sets the LineStackingStrategy DependencyProperty. This corresponds to TextBlock.LineStackingStrategy.
+            </summary>
+        </member>
+        <member name="T:Callisto.Controls.Flyout">
+            <summary>
+            The main Flyout control to host any popup/flyout content.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Flyout.#ctor">
+            <summary>
+             Flyout constructor
+            </summary>
+        </member>
+        <member name="T:Callisto.Controls.LiveTile">
+            <summary>
+            An items control that presents enumerable content similar to the live tiles on the
+            start menu.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.LiveTile.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:Callisto.Controls.LiveTile"/>
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.LiveTile.OnApplyTemplate">
+            <summary>
+            Invoked whenever application code or internal processes (such as a rebuilding
+            layout pass) call <see cref="!:ApplyTemplate"/>. In simplest terms, this means the method
+            is called just before a UI element displays in an application. Override this
+            method to influence the default post-template logic of a class.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.LiveTile.timer_Tick(System.Object,System.Object)">
+            <summary>
+            Triggered when it's time to flip to the next live tile.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:Callisto.Controls.LiveTile.ItemsSourceProperty">
+            <summary>
+            Identifies the <see cref="P:Callisto.Controls.LiveTile.ItemsSource"/> property.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.LiveTile.ItemTemplateProperty">
+            <summary>
+            Identifies the <see cref="P:Callisto.Controls.LiveTile.ItemTemplate"/> property.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.LiveTile.SlideDirectionProperty">
+            <summary>
+            Identifies the <see cref="T:Callisto.Controls.LiveTile.SlideDirection"/> property.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.LiveTile.ItemsSource">
+            <summary>
+            Gets or sets the ItemsSource
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.LiveTile.ItemTemplate">
+            <summary>
+            Gets or sets the item template
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.LiveTile.Direction">
+            <summary>
+            Gets or sets the direction the tile slides in.
+            </summary>
+        </member>
+        <member name="T:Callisto.Controls.LiveTile.SlideDirection">
+            <summary>
+            Live Tile Slide Direction
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.LiveTile.SlideDirection.Up">
+            <summary>Up</summary>
+        </member>
+        <member name="F:Callisto.Controls.LiveTile.SlideDirection.Left">
+            <summary>Left</summary>
+        </member>
+        <member name="T:Callisto.Controls.Primitives.Clipper">
+            <summary>
+            Clips a ratio of its content.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Primitives.Clipper.RatioVisibleProperty">
+            <summary>
+            Identifies the RatioVisible dependency property.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Primitives.Clipper.OnRatioVisibleChanged(Windows.UI.Xaml.DependencyObject,Windows.UI.Xaml.DependencyPropertyChangedEventArgs)">
+            <summary>
+            RatioVisibleProperty property changed handler.
+            </summary>
+            <param name="d">PartialView that changed its RatioVisible.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Controls.Primitives.Clipper.OnRatioVisibleChanged(System.Double,System.Double)">
+            <summary>
+            RatioVisibleProperty property changed handler.
+            </summary>
+            <param name="oldValue">Old value.</param>
+            <param name="newValue">New value.</param>        
+        </member>
+        <member name="M:Callisto.Controls.Primitives.Clipper.#ctor">
+            <summary>
+            Initializes a new instance of the Clipper class.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Primitives.Clipper.ClipContent">
+            <summary>
+            Updates the clip geometry.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.Primitives.Clipper.RatioVisible">
+            <summary>
+            Gets or sets the percentage of the item visible.
+            </summary>
+        </member>
+        <member name="T:Callisto.Controls.EnumerableFunctions">
+            <summary>
+            This class contains general purpose functions to manipulate the generic
+            IEnumerable type.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.EnumerableFunctions.Scan``2(System.Collections.Generic.IEnumerable{``0},System.Func{``1,``0,``1},``1)">
+            <summary>
+            Applies a function to an accumulated value and an item in the 
+            sequence and yields the result as the accumulated value.
+            </summary>
+            <typeparam name="T">The type of the input sequence.</typeparam>
+            <typeparam name="R">The type of the initial value.</typeparam>
+            <param name="that">The sequence to scan.</param>
+            <param name="func">The function applied to the accumulator and the
+            current item.</param>
+            <param name="initialValue">The initial value in the output sequence.
+            </param>
+            <returns>A sequence of computed values.</returns>
+        </member>
+        <member name="M:Callisto.Controls.EnumerableFunctions.Zip``3(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,``2})">
+            <summary>
+            Accepts two sequences and applies a function to the corresponding 
+            values in the two sequences.
+            </summary>
+            <typeparam name="T0">The type of the first sequence.</typeparam>
+            <typeparam name="T1">The type of the second sequence.</typeparam>
+            <typeparam name="R">The return type of the function.</typeparam>
+            <param name="enumerable0">The first sequence.</param>
+            <param name="enumerable1">The second sequence.</param>
+            <param name="func">The function to apply to the corresponding values
+            from the two sequences.</param>
+            <returns>A sequence of transformed values from both sequences.</returns>
+        </member>
+        <member name="M:Callisto.Controls.EnumerableFunctions.IndexOf``1(System.Collections.Generic.IEnumerable{``0},``0)">
+            <summary>
+            Returns the index of an item in a sequence.
+            </summary>
+            <typeparam name="T">The type of the sequence.</typeparam>
+            <param name="that">The sequence.</param>
+            <param name="item">The item in the sequence.</param>
+            <returns>The index of an item in a sequence.</returns>
+        </member>
+        <member name="M:Callisto.Controls.EnumerableFunctions.GetWeightedValues(System.Collections.Generic.IEnumerable{System.Double},System.Double)">
+            <summary>
+            Returns a stream of weighted values based on a percentage.
+            </summary>
+            <param name="values">A sequence of values.</param>
+            <param name="percent">The percentage of values.</param>
+            <returns>A sequence of percentages.</returns>
+        </member>
+        <member name="T:Callisto.Controls.Primitives.LinearClipper">
+            <summary>
+            Clips the content of the control in a given direction.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Primitives.LinearClipper.ExpandDirectionProperty">
+            <summary>
+            Identifies the ExpandDirection dependency property.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Primitives.LinearClipper.OnExpandDirectionChanged(Windows.UI.Xaml.DependencyObject,Windows.UI.Xaml.DependencyPropertyChangedEventArgs)">
+            <summary>
+            ExpandDirectionProperty property changed handler.
+            </summary>
+            <param name="d">ExpandDirectionView that changed its ExpandDirection.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Controls.Primitives.LinearClipper.OnExpandDirectionChanged(Callisto.Controls.ExpandDirection,Callisto.Controls.ExpandDirection)">
+            <summary>
+            ExpandDirectionProperty property changed handler.
+            </summary>
+            <param name="oldValue">Old value.</param>
+            <param name="newValue">New value.</param>        
+        </member>
+        <member name="M:Callisto.Controls.Primitives.LinearClipper.ClipContent">
+            <summary>
+            Updates the clip geometry.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.Primitives.LinearClipper.ExpandDirection">
+            <summary>
+            Gets or sets the clipped edge.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.NumericUpDown._levelsFromRootCall">
+            <summary>
+            Levels from root call.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.NumericUpDown._initialInc">
+            <summary>
+            Initial Increment value.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.NumericUpDown._initialMin">
+            <summary>
+            Initial Minimum value.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.NumericUpDown._initialMax">
+            <summary>
+            Initial Maximum value.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.NumericUpDown._initialVal">
+            <summary>
+            Initial Minimum value.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.NumericUpDown._requestedInc">
+            <summary>
+            Requested Increment value.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.NumericUpDown._requestedMin">
+            <summary>
+            Requested Minimum value.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.NumericUpDown._requestedMax">
+            <summary>
+            Requested Maximum value.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.NumericUpDown._requestedVal">
+            <summary>
+            Requested Value value.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.NumericUpDown.CoerceMaximum">
+            <summary>
+            Ensure the Maximum is greater than or equal to the Minimum.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.NumericUpDown.CoerceValue">
+            <summary>
+            Ensure the value falls between the Minimum and Maximum values.
+            This function assumes that (Maximum >= Minimum).
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.NumericUpDown.IsValidDoubleValue(System.Object,System.Double@)">
+            <summary>
+            Check if an object value is a valid double value.
+            </summary>
+            <param name="value">The value to be checked.</param>
+            <param name="number">The double value to be returned.</param>
+            <returns>true if a valid double; false otherwise.</returns>
+        </member>
+        <member name="M:Callisto.Controls.NumericUpDown.EnsureValidDoubleValue(Windows.UI.Xaml.DependencyObject,Windows.UI.Xaml.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Ensure the new value of a dependency property change is a valid double value, 
+            or revert the change and throw an exception.
+            </summary>
+            <remarks>
+            EnsureValidDoubleValue(DependencyObject d, DependencyPropertyChangedEventArgs e) is simply a wrapper for 
+            EnsureValidDoubleValue(DependencyObject d, DependencyProperty property, object oldValue, object newValue).
+            </remarks>
+            <param name="d">The DependencyObject whose DependencyProperty is changed.</param>
+            <param name="e">The DependencyPropertyChangedEventArgs.</param>
+        </member>
+        <member name="M:Callisto.Controls.NumericUpDown.EnsureValidDoubleValue(Windows.UI.Xaml.DependencyObject,Windows.UI.Xaml.DependencyProperty,System.Object,System.Object)">
+            <summary>
+            Ensure the new value of a dependency property change is a valid double value, 
+            or revert the change and throw an exception.
+            </summary>
+            <param name="d">The DependencyObject whose DependencyProperty is changed.</param>
+            <param name="property">The DependencyProperty that changed.</param>
+            <param name="oldValue">The old value.</param>
+            <param name="newValue">The new value.</param>
+        </member>
+        <member name="M:Callisto.Controls.NumericUpDown.EnsureValidIncrementValue(Windows.UI.Xaml.DependencyObject,Windows.UI.Xaml.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Ensure the new value of Increment dependency property change is valid, 
+            or revert the change and throw an exception.
+            </summary>
+            <param name="d">The DependencyObject whose DependencyProperty is changed.</param>
+            <param name="e">The DependencyPropertyChangedEventArgs.</param>
+        </member>
+        <member name="M:Callisto.Controls.NumericUpDown.EnsureValidDecimalPlacesValue(Windows.UI.Xaml.DependencyObject,Windows.UI.Xaml.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Ensure the new value of DecimalPlaces dependency property change is valid, 
+            or revert the change and throw an exception.
+            </summary>
+            <param name="d">The DependencyObject whose DecimalPlaces DependencyProperty is changed.</param>
+            <param name="e">The DependencyPropertyChangedEventArgs.</param>
+        </member>
+        <member name="T:Callisto.Controls.Rating">
+            <summary>
+            A control that has a rating.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Rating.DisplayValueProperty">
+            <summary>
+            Identifies the DisplayValue dependency property.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Rating.OnDisplayValueChanged(Windows.UI.Xaml.DependencyObject,Windows.UI.Xaml.DependencyPropertyChangedEventArgs)">
+            <summary>
+            DisplayValueProperty property changed handler.
+            </summary>
+            <param name="dependencyObject">Rating that changed its DisplayValue.</param>
+            <param name="eventArgs">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Controls.Rating.OnDisplayValueChanged">
+            <summary>
+            DisplayValueProperty property changed handler.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.Rating.ItemCountProperty">
+            <summary>
+            Identifies the ItemCount dependency property.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Rating.OnItemCountChanged(Windows.UI.Xaml.DependencyObject,Windows.UI.Xaml.DependencyPropertyChangedEventArgs)">
+            <summary>
+            ItemCountProperty property changed handler.
+            </summary>
+            <param name="d">Rating that changed its ItemCount.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Controls.Rating.OnItemCountChanged(System.Int32)">
+            <summary>
+            This method is invoked when the items count property is changed.
+            </summary>
+            <param name="newValue">The new value.</param>
+        </member>
+        <member name="M:Callisto.Controls.Rating.OnItemContainerStyleChanged(Windows.UI.Xaml.DependencyObject,Windows.UI.Xaml.DependencyPropertyChangedEventArgs)">
+            <summary>
+            ItemContainerStyleProperty property changed handler.
+            </summary>
+            <param name="d">Rating that changed its ItemContainerStyle.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Controls.Rating.OnItemContainerStyleChanged(Windows.UI.Xaml.Style)">
+            <summary>
+            ItemContainerStyleProperty property changed handler.
+            </summary>
+            <param name="newValue">New value.</param>        
+        </member>
+        <member name="F:Callisto.Controls.Rating.SelectionModeProperty">
+            <summary>
+            Identifies the SelectionMode dependency property.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Rating.OnSelectionModeChanged(Windows.UI.Xaml.DependencyObject,Windows.UI.Xaml.DependencyPropertyChangedEventArgs)">
+            <summary>
+            SelectionModeProperty property changed handler.
+            </summary>
+            <param name="d">Rating that changed its SelectionMode.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Controls.Rating.OnSelectionModeChanged(Callisto.Controls.RatingSelectionMode,Callisto.Controls.RatingSelectionMode)">
+            <summary>
+            SelectionModeProperty property changed handler.
+            </summary>
+            <param name="oldValue">Old value.</param>
+            <param name="newValue">New value.</param>        
+        </member>
+        <member name="F:Callisto.Controls.Rating.ValueProperty">
+            <summary>
+            Identifies the Value dependency property.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Rating.OnValueChanged(Windows.UI.Xaml.DependencyObject,Windows.UI.Xaml.DependencyPropertyChangedEventArgs)">
+            <summary>
+            ValueProperty property changed handler.
+            </summary>
+            <param name="d">Rating that changed its Value.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Controls.Rating.OnValueChanged(System.Double,System.Double)">
+            <summary>
+            ValueProperty property changed handler.
+            </summary>
+            <param name="oldValue">Old value.</param>
+            <param name="newValue">New value.</param>        
+        </member>
+        <member name="M:Callisto.Controls.Rating.OnItemsChanged(System.Object)">
+            <summary>
+            Updates the control when the items change.
+            </summary>
+            <param name="e">Information about the event.</param>
+        </member>
+        <member name="M:Callisto.Controls.Rating.#ctor">
+            <summary>
+            Initializes a new instance of the Rating control.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Rating.OnApplyTemplate">
+            <summary>
+            Applies control template to the items control.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Rating.OnPointerEntered(Windows.UI.Xaml.Input.PointerRoutedEventArgs)">
+            <summary>
+            This method is invoked when the pointer enters the rating item.
+            </summary>
+            <param name="e">Information about the event.</param>
+        </member>
+        <member name="M:Callisto.Controls.Rating.OnPointerExited(Windows.UI.Xaml.Input.PointerRoutedEventArgs)">
+            <summary>
+            This method is invoked when the pointer leaves the rating item.
+            </summary>
+            <param name="e">Information about the event.</param>
+        </member>
+        <member name="M:Callisto.Controls.Rating.OnPointerPressed(Windows.UI.Xaml.Input.PointerRoutedEventArgs)">
+            <summary>
+            Provides handling for the Rating's PointerPressed event.
+            </summary>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Controls.Rating.OnPointerReleased(Windows.UI.Xaml.Input.PointerRoutedEventArgs)">
+            <summary>
+            Provides handling for the Rating's PointerReleased event.
+            </summary>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Controls.Rating.UpdateValues">
+            <summary>
+            Updates the values of the rating items.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Rating.UpdateDisplayValues">
+            <summary>
+            Updates the value and actual value of the rating items.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Rating.UpdateHoverStates">
+            <summary>
+            Updates the hover states of the rating items.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.Rating.GetContainerForItemOverride">
+            <summary>
+            This method returns a container for the item.
+            </summary>
+            <returns>A container for the item.</returns>
+        </member>
+        <member name="M:Callisto.Controls.Rating.IsItemItsOwnContainerOverride(System.Object)">
+            <summary>
+            Gets a value indicating whether the item is its own container.
+            </summary>
+            <param name="item">The item which may be a container.</param>
+            <returns>A value indicating whether the item is its own container.
+            </returns>
+        </member>
+        <member name="M:Callisto.Controls.Rating.PrepareContainerForItemOverride(Windows.UI.Xaml.DependencyObject,System.Object)">
+            <summary>
+            This method prepares a container to host an item.
+            </summary>
+            <param name="element">The container.</param>
+            <param name="item">The item hosted in the container.</param>
+        </member>
+        <member name="M:Callisto.Controls.Rating.ClearContainerForItemOverride(Windows.UI.Xaml.DependencyObject,System.Object)">
+            <summary>
+            This method clears a container used to host an item.
+            </summary>
+            <param name="element">The container that hosts the item.</param>
+            <param name="item">The item hosted in the container.</param>
+        </member>
+        <member name="M:Callisto.Controls.Rating.RatingItemPointerEnter(System.Object,Windows.UI.Xaml.Input.PointerRoutedEventArgs)">
+            <summary>
+            This method is invoked when a rating item's mouse enter event is
+            invoked.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">Information about the event.</param>
+        </member>
+        <member name="M:Callisto.Controls.Rating.RatingItemPointerExited(System.Object,Windows.UI.Xaml.Input.PointerRoutedEventArgs)">
+            <summary>
+            This method is invoked when a rating item's mouse leave event is
+            invoked.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">Information about the event.</param>
+        </member>
+        <member name="M:Callisto.Controls.Rating.GetRatingItems">
+            <summary>
+            Returns a sequence of rating items.
+            </summary>
+            <returns>A sequence of rating items.</returns>
+        </member>
+        <member name="M:Callisto.Controls.Rating.SelectRatingItem(Callisto.Controls.RatingItem)">
+            <summary>
+            Selects a rating item.
+            </summary>
+            <param name="selectedRatingItem">The selected rating item.</param>
+        </member>
+        <member name="M:Callisto.Controls.Rating.RatingItemTapped(System.Object,Windows.UI.Xaml.RoutedEventArgs)">
+            <summary>
+            This method is raised when a rating item value is selected.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">Information about the event.</param>
+        </member>
+        <member name="M:Callisto.Controls.Rating.GetSelectedRatingItem">
+            <summary>
+            Returns the selected rating item.
+            </summary>
+            <returns>The selected rating item.</returns>
+        </member>
+        <member name="M:Callisto.Controls.Rating.OnRatingItemValueSelected(Callisto.Controls.RatingItem,System.Double)">
+            <summary>
+            This method is invoked when the rating item value is changed.
+            </summary>
+            <param name="ratingItem">The rating item that has changed.</param>
+            <param name="newValue">The new value.</param>
+        </member>
+        <member name="M:Callisto.Controls.Rating.OnKeyDown(Windows.UI.Xaml.Input.KeyRoutedEventArgs)">
+            <summary>
+            Provides handling for the
+            <see cref="E:System.Windows.UIElement.KeyDown" /> event when a key
+            is pressed while the control has focus.
+            </summary>
+            <param name="e">
+            A <see cref="T:System.Windows.Input.KeyEventArgs" /> that contains
+            the event data.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="e " />is null.
+            </exception>
+        </member>
+        <member name="M:Callisto.Controls.Rating.GetRatingItemAtOffsetFrom(Callisto.Controls.RatingItem,System.Int32)">
+            <summary>
+            Gets a rating item at a certain index offset from another 
+            rating item.
+            </summary>
+            <param name="ratingItem">The rating item.</param>
+            <param name="offset">The rating item at an offset from the 
+            index of the rating item.</param>
+            <returns>The rating item at the offset.</returns>
+        </member>
+        <member name="M:Callisto.Controls.Rating.Callisto#Controls#Common#IUpdateVisualState#UpdateVisualState(System.Boolean)">
+            <summary>
+            Updates the visual state.
+            </summary>
+            <param name="useTransitions">A value indicating whether to use transitions.</param>
+        </member>
+        <member name="P:Callisto.Controls.Rating.DisplayValue">
+            <summary>
+            Gets or sets the actual value of the Rating control.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.Rating.HoveredRatingItem">
+            <summary>
+            Gets or sets the rating item hovered over.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.Rating.Interaction">
+            <summary>
+            Gets the helper that provides all of the standard
+            interaction functionality.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.Rating.ItemsControlHelper">
+            <summary>
+            Gets or sets the items control helper class.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.Rating.ItemCount">
+            <summary>
+            Gets or sets the number of rating items.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.Rating.SelectionMode">
+            <summary>
+            Gets or sets the selection mode.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.Rating.Value">
+            <summary>
+            Gets or sets the rating value.
+            </summary>
+        </member>
+        <member name="E:Callisto.Controls.Rating.ValueChanged">
+            <summary>
+            This event is raised when the value of the rating is changed.
+            </summary>
+        </member>
+        <member name="T:Callisto.Controls.RatingItem">
+            <summary>
+            An item used in a rating control.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.RatingItem.StateFilled">
+            <summary>
+            The state in which the item is filled.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.RatingItem.StateEmpty">
+            <summary>
+            The state in which the item is empty.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.RatingItem.GroupFill">
+            <summary>
+            The group that contains fill states.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.RatingItem.StatePartial">
+            <summary>
+            The state in which the item is partially filled.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.RatingItem._interactionHelper">
+            <summary>
+            The interaction helper used to get the common states working.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.RatingItem._settingDisplayValue">
+            <summary>
+            A value indicating whether the actual value is being set.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.RatingItem.DisplayValueProperty">
+            <summary>
+            Identifies the DisplayValue dependency property.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.RatingItem.OnDisplayValueChanged(Windows.UI.Xaml.DependencyObject,Windows.UI.Xaml.DependencyPropertyChangedEventArgs)">
+            <summary>
+            DisplayValueProperty property changed handler.
+            </summary>
+            <param name="d">RatingItem that changed its DisplayValue.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Controls.RatingItem.OnDisplayValueChanged(System.Double,System.Double)">
+            <summary>
+            DisplayValueProperty property changed handler.
+            </summary> 
+            <param name="oldValue">The old value.</param> 
+            <param name="newValue">The new value.</param>
+        </member>
+        <member name="F:Callisto.Controls.RatingItem.ValueProperty">
+            <summary>
+            Identifies the Value dependency property.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.RatingItem.SelectValue">
+            <summary>
+            Selects a value and raises the value selected event.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.RatingItem.#ctor">
+            <summary>
+            Initializes a new instance of the RatingItem class.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.RatingItem.OnPointerPressed(Windows.UI.Xaml.Input.PointerRoutedEventArgs)">
+            <summary>
+            Provides handling for the RatingItem's PointerPressed event.
+            </summary>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Controls.RatingItem.OnPointerReleased(Windows.UI.Xaml.Input.PointerRoutedEventArgs)">
+            <summary>
+            Provides handling for the RatingItem's PointerReleased event.
+            </summary>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Controls.RatingItem.OnPointerEntered(Windows.UI.Xaml.Input.PointerRoutedEventArgs)">
+            <summary>
+            This method is invoked when the pointer enters the rating item.
+            </summary>
+            <param name="e">Information about the event.</param>
+        </member>
+        <member name="M:Callisto.Controls.RatingItem.OnPointerExited(Windows.UI.Xaml.Input.PointerRoutedEventArgs)">
+            <summary>
+            This method is invoked when the pointer leaves the rating item.
+            </summary>
+            <param name="e">Information about the event.</param>
+        </member>
+        <member name="M:Callisto.Controls.RatingItem.OnTapped(Windows.UI.Xaml.Input.TappedRoutedEventArgs)">
+            <summary>
+            Sets the value to 1.0 when clicked.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.RatingItem.Callisto#Controls#Common#IUpdateVisualState#UpdateVisualState(System.Boolean)">
+            <summary>
+            Updates the visual state.
+            </summary>
+            <param name="useTransitions">A value indicating whether to use 
+            transitions.</param>
+        </member>
+        <member name="P:Callisto.Controls.RatingItem.DisplayValue">
+            <summary>
+            Gets the actual value.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.RatingItem.PointerOverFill">
+            <summary>
+            Sets the PointerOver brush color
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.RatingItem.PointerPressedFill">
+            <summary>
+            Sets the PointerPressed brush color
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.RatingItem.ParentRating">
+            <summary>
+            Gets or sets the parent rating of this rating item.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.RatingItem.Value">
+            <summary>
+            Gets or sets the value property.
+            </summary>
+        </member>
+        <member name="T:Callisto.Controls.RatingSelectionMode">
+            <summary>
+            This type is used to determine the state of the item selected and the
+            previous items.
+            </summary>
+            <QualityBand>Preview</QualityBand>
+        </member>
+        <member name="F:Callisto.Controls.RatingSelectionMode.Continuous">
+            <summary>
+            All items before the selected ones are selected.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.RatingSelectionMode.Individual">
+            <summary>
+            Only the item selected is visually distinguished.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.WatermarkTextBox.ChangeVisualState(System.Boolean)">
+            <summary>
+            Change to the correct visual state for the textbox.
+            </summary>
+            <param name="useTransitions">
+            True to use transitions when updating the visual state, false to
+            snap directly to the new visual state.
+            </param>
+        </member>
+        <member name="F:Callisto.Controls.OrientedSize._orientation">
+            <summary>
+            The orientation of the structure.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.OrientedSize._direct">
+            <summary>
+            The size dimension that grows directly with layout placement.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.OrientedSize._indirect">
+            <summary>
+            The size dimension that grows indirectly with the maximum value of
+            the layout row or column.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.OrientedSize.#ctor(Windows.UI.Xaml.Controls.Orientation)">
+            <summary>
+            Initializes a new OrientedSize structure.
+            </summary>
+            <param name="orientation">Orientation of the structure.</param>
+        </member>
+        <member name="M:Callisto.Controls.OrientedSize.#ctor(Windows.UI.Xaml.Controls.Orientation,System.Double,System.Double)">
+            <summary>
+            Initializes a new OrientedSize structure.
+            </summary>
+            <param name="orientation">Orientation of the structure.</param>
+            <param name="width">Un-oriented width of the structure.</param>
+            <param name="height">Un-oriented height of the structure.</param>
+        </member>
+        <member name="P:Callisto.Controls.OrientedSize.Orientation">
+            <summary>
+            Gets the orientation of the structure.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.OrientedSize.Direct">
+            <summary>
+            Gets or sets the size dimension that grows directly with layout
+            placement.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.OrientedSize.Indirect">
+            <summary>
+            Gets or sets the size dimension that grows indirectly with the
+            maximum value of the layout row or column.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.OrientedSize.Width">
+            <summary>
+            Gets or sets the width of the size.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.OrientedSize.Height">
+            <summary>
+            Gets or sets the height of the size.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.WrapPanel._ignorePropertyChange">
+            <summary>
+            A value indicating whether a dependency property change handler
+            should ignore the next change notification.  This is used to reset
+            the value of properties without performing any of the actions in
+            their change handlers.
+            </summary>
+        </member>
+        <member name="F:Callisto.Controls.WrapPanel.ItemHeightProperty">
+            <summary>
+            Identifies the
+            <see cref="P:Callisto.Controls.WrapPanel.ItemHeight" />
+            dependency property.
+            </summary>
+            <value>
+            The identifier for the
+            <see cref="P:Callisto.Controls.WrapPanel.ItemHeight" />
+            dependency property
+            </value>
+        </member>
+        <member name="F:Callisto.Controls.WrapPanel.ItemWidthProperty">
+            <summary>
+            Identifies the
+            <see cref="P:Callisto.Controls.WrapPanel.ItemWidth" />
+            dependency property.
+            </summary>
+            <value>
+            The identifier for the
+            <see cref="P:Callisto.Controls.WrapPanel.ItemWidth" />
+            dependency property.
+            </value>
+        </member>
+        <member name="F:Callisto.Controls.WrapPanel.OrientationProperty">
+            <summary>
+            Identifies the
+            <see cref="P:Callisto.Controls.WrapPanel.Orientation" />
+            dependency property.
+            </summary>
+            <value>
+            The identifier for the
+            <see cref="P:Callisto.Controls.WrapPanel.Orientation" />
+            dependency property.
+            </value>
+        </member>
+        <member name="M:Callisto.Controls.WrapPanel.OnOrientationPropertyChanged(Windows.UI.Xaml.DependencyObject,Windows.UI.Xaml.DependencyPropertyChangedEventArgs)">
+            <summary>
+            OrientationProperty property changed handler.
+            </summary>
+            <param name="d">WrapPanel that changed its Orientation.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Controls.WrapPanel.OnItemHeightOrWidthPropertyChanged(Windows.UI.Xaml.DependencyObject,Windows.UI.Xaml.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Property changed handler for ItemHeight and ItemWidth.
+            </summary>
+            <param name="d">
+            WrapPanel that changed its ItemHeight or ItemWidth.
+            </param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Controls.WrapPanel.MeasureOverride(Windows.Foundation.Size)">
+            <summary>
+            Measures the child elements of a
+            <see cref="T:Callisto.Controls.WrapPanel" /> in anticipation
+            of arranging them during the
+            <see cref="M:Callisto.Controls.WrapPanel.ArrangeOverride(Windows.Foundation.Size)" />
+            pass.
+            </summary>
+            <param name="constraint">
+            The size available to child elements of the wrap panel.
+            </param>
+            <returns>
+            The size required by the
+            <see cref="T:Callisto.Controls.WrapPanel" /> and its 
+            elements.
+            </returns>
+        </member>
+        <member name="M:Callisto.Controls.WrapPanel.ArrangeOverride(Windows.Foundation.Size)">
+            <summary>
+            Arranges and sizes the
+            <see cref="T:Callisto.Controls.WrapPanel" /> control and its
+            child elements.
+            </summary>
+            <param name="finalSize">
+            The area within the parent that the
+            <see cref="T:Callisto.Controls.WrapPanel" /> should use 
+            arrange itself and its children.
+            </param>
+            <returns>
+            The actual size used by the
+            <see cref="T:Callisto.Controls.WrapPanel" />.
+            </returns>
+        </member>
+        <member name="M:Callisto.Controls.WrapPanel.ArrangeLine(System.Int32,System.Int32,System.Nullable{System.Double},System.Double,System.Double)">
+            <summary>
+            Arrange a sequence of elements in a single line.
+            </summary>
+            <param name="lineStart">
+            Index of the first element in the sequence to arrange.
+            </param>
+            <param name="lineEnd">
+            Index of the last element in the sequence to arrange.
+            </param>
+            <param name="directDelta">
+            Optional fixed growth in the primary direction.
+            </param>
+            <param name="indirectOffset">
+            Offset of the line in the indirect direction.
+            </param>
+            <param name="indirectGrowth">
+            Shared indirect growth of the elements on this line.
+            </param>
+        </member>
+        <member name="P:Callisto.Controls.WrapPanel.ItemHeight">
+            <summary>
+            Gets or sets the height of the layout area for each item that is
+            contained in a <see cref="T:Callisto.Controls.WrapPanel" />.
+            </summary>
+            <value>
+            The height applied to the layout area of each item that is contained
+            within a <see cref="T:Callisto.Controls.WrapPanel" />.  The
+            default value is <see cref="F:System.Double.NaN" />.
+            </value>
+        </member>
+        <member name="P:Callisto.Controls.WrapPanel.ItemWidth">
+            <summary>
+            Gets or sets the width of the layout area for each item that is
+            contained in a <see cref="T:Callisto.Controls.WrapPanel" />.
+            </summary>
+            <value>
+            The width that applies to the layout area of each item that is
+            contained in a <see cref="T:Callisto.Controls.WrapPanel" />.
+            The default value is <see cref="F:System.Double.NaN" />.
+            </value>
+        </member>
+        <member name="P:Callisto.Controls.WrapPanel.Orientation">
+            <summary>
+            Gets or sets the direction in which child elements are arranged.
+            </summary>
+            <value>
+            One of the <see cref="T:Windows.UI.Xaml.Controls.Orientation" />
+            values.  The default is
+            <see cref="F:Windows.UI.Xaml.Controls.Orientation.Horizontal" />.
+            </value>
+        </member>
+        <member name="T:Callisto.Converters.DateTimeFormatHelper">
+            <summary>
+            Helper methods and constants for the date time converters.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.DateTimeFormatHelper.Hour">
+            <summary>
+            An hour defined in minutes.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.DateTimeFormatHelper.Day">
+            <summary>
+            A day defined in minutes.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.DateTimeFormatHelper.SingleMeridiemDesignator">
+            <summary>
+            Format pattern for single-character meridiem designators.
+            e.g. 4:30p
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.DateTimeFormatHelper.DoubleMeridiemDesignator">
+            <summary>
+            Format pattern for double-character meridiem designators.
+            e.g. 4:30 p.m.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.DateTimeFormatHelper.formatInfo_GetSuperShortTime">
+            <summary>
+            Date and time information used when getting the super short time
+            pattern. Syncs with the current culture.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.DateTimeFormatHelper.formatInfo_GetMonthAndDay">
+            <summary>
+            Date and time information used when getting the month and day
+            pattern. Syncs with the current culture.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.DateTimeFormatHelper.formatInfo_GetShortTime">
+            <summary>
+            Date and time information used when getting the short time
+            pattern. Syncs with the current culture.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.DateTimeFormatHelper.lock_GetSuperShortTime">
+            <summary>
+            Lock object used to delimit a critical region when getting
+            the super short time pattern.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.DateTimeFormatHelper.lock_GetMonthAndDay">
+            <summary>
+            Lock object used to delimit a critical region when getting
+            the month and day pattern.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.DateTimeFormatHelper.lock_GetShortTime">
+            <summary>
+            Lock object used to delimit a critical region when getting
+            the short time pattern.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.DateTimeFormatHelper.rxMonthAndDay">
+            <summary>
+            Regular expression used to get the month and day pattern.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.DateTimeFormatHelper.rxSeconds">
+            <summary>
+            Regular expression used to get the seconds pattern with separator.
+            </summary>
+        </member>
+        <member name="M:Callisto.Converters.DateTimeFormatHelper.GetRelativeDayOfWeek(System.DateTime)">
+            <summary>
+            Gets the number representing the day of the week from a given
+            <see cref="T:System.DateTime"/>
+            object, relative to the first day of the week 
+            according to the current culture.
+            </summary>
+            <param name="dt">Date information.</param>
+            <returns>
+            A number representing the day of the week.
+            e.g. if Monday is the first day of the week according to the
+            relative culture, Monday returns 0, Tuesday returns 1, etc.
+            </returns>
+        </member>
+        <member name="M:Callisto.Converters.DateTimeFormatHelper.IsFutureDateTime(System.DateTime,System.DateTime)">
+            <summary>
+            Indicates if a given
+            <see cref="T:System.DateTime"/>
+            object represents a future instance when compared to another
+            <see cref="T:System.DateTime"/>
+            object.
+            </summary>
+            <param name="relative">Relative date and time.</param>
+            <param name="given">Given date and time.</param>
+            <returns>
+            True if given date and time represents a future instance.
+            </returns>
+        </member>
+        <member name="M:Callisto.Converters.DateTimeFormatHelper.IsAnOlderYear(System.DateTime,System.DateTime)">
+            <summary>
+            Indicates if a given
+            <see cref="T:System.DateTime"/>
+            object represents a past year when compared to another
+            <see cref="T:System.DateTime"/>
+            object.
+            </summary>
+            <param name="relative">Relative date and time.</param>
+            <param name="given">Given date and time.</param>
+            <returns>
+            True if given date and time is set to a past year.
+            </returns>
+        </member>
+        <member name="M:Callisto.Converters.DateTimeFormatHelper.IsAnOlderWeek(System.DateTime,System.DateTime)">
+            <summary>
+            Indicates if a given
+            <see cref="T:System.DateTime"/>
+            object represents a past week when compared to another
+            <see cref="T:System.DateTime"/>
+            object.
+            </summary>
+            <param name="relative">Relative date and time.</param>
+            <param name="given">Given date and time.</param>
+            <returns>
+            True if given date and time is set to a past week.
+            </returns>
+        </member>
+        <member name="M:Callisto.Converters.DateTimeFormatHelper.IsAtLeastOneWeekOld(System.DateTime,System.DateTime)">
+            <summary>
+            Indicates if a given
+            <see cref="T:System.DateTime"/>
+            object is at least one week behind from another
+            <see cref="T:System.DateTime"/>
+            object.
+            </summary>
+            <param name="relative">Relative date and time.</param>
+            <param name="given">Given date and time.</param>
+            <returns>
+            True if given date and time is at least one week behind.
+            </returns>
+        </member>
+        <member name="M:Callisto.Converters.DateTimeFormatHelper.IsPastDayOfWeek(System.DateTime,System.DateTime)">
+            <summary>
+            Indicates if a given
+            <see cref="T:System.DateTime"/>
+            object corresponds to a past day in the same week as another
+            <see cref="T:System.DateTime"/>
+            object.
+            </summary>
+            <param name="relative">Relative date and time.</param>
+            <param name="given">Given date and time.</param>
+            <returns>
+            True if given date and time is a past day in the relative week.
+            </returns>
+        </member>
+        <member name="M:Callisto.Converters.DateTimeFormatHelper.IsPastDayOfWeekWithWindow(System.DateTime,System.DateTime)">
+            <summary>
+            Indicates if a given
+            <see cref="T:System.DateTime"/>
+            object corresponds to a past day in the same week as another
+            <see cref="T:System.DateTime"/>
+            object and at least three hours behind it.
+            </summary>
+            <param name="relative">Relative date and time.</param>
+            <param name="given">Given date and time.</param>
+            <returns>
+            True if given date and time is a past day in the relative week 
+            and at least three hours behind the relative time.
+            </returns>
+        </member>
+        <member name="M:Callisto.Converters.DateTimeFormatHelper.IsCurrentCultureJapanese">
+            <summary>
+            Identifies if the current culture is set to Japanese.
+            </summary>
+            <returns>
+            True if current culture is set to Japanese.
+            </returns>
+        </member>
+        <member name="M:Callisto.Converters.DateTimeFormatHelper.IsCurrentCultureKorean">
+            <summary>
+            Identifies if the current culture is set to Korean.
+            </summary>
+            <returns>
+            True if current culture is set to Korean.
+            </returns>
+        </member>
+        <member name="M:Callisto.Converters.DateTimeFormatHelper.IsCurrentCultureTurkish">
+            <summary>
+            Identifies if the current culture is set to Turkish.
+            </summary>
+            <returns>
+            True if current culture is set to Turkish.
+            </returns>
+        </member>
+        <member name="M:Callisto.Converters.DateTimeFormatHelper.IsCurrentCultureHungarian">
+            <summary>
+            Identifies if the current culture is set to Hungarian.
+            </summary>
+            <returns>
+            True if current culture is set to Hungarian.
+            </returns>
+        </member>
+        <member name="M:Callisto.Converters.DateTimeFormatHelper.IsCurrentUICultureFrench">
+            <summary>
+            Identifies if the current UI culture is set to French.
+            </summary>
+            <returns>
+            True if current UI culture is set to French.
+            </returns>
+        </member>
+        <member name="M:Callisto.Converters.DateTimeFormatHelper.GetAbbreviatedDay(System.DateTime)">
+            <summary>
+            Gets the abbreviated day from a
+            <see cref="T:System.DateTime"/>
+            object.
+            </summary>
+            <param name="dt">Date information.</param>
+            <returns>e.g. "Mon" for Monday when en-US.</returns>
+        </member>
+        <member name="M:Callisto.Converters.DateTimeFormatHelper.GetSuperShortTime(System.DateTime)">
+            <summary>
+            Gets the time from a 
+            <see cref="T:System.DateTime"/>
+            object in short Metro format.
+            </summary>
+            <remarks>
+            Metro design guidelines normalize strings to lowercase.
+            </remarks>
+            <param name="dt">Time information.</param>
+            <returns>"10:20p" for 10:20 p.m. when en-US.</returns>
+        </member>
+        <member name="M:Callisto.Converters.DateTimeFormatHelper.GetMonthAndDay(System.DateTime)">
+            <summary>
+            Gets the month and day from a
+            <see cref="T:System.DateTime"/>
+            object.
+            </summary>
+            <param name="dt">Date information.</param>
+            <returns>"05/24" for May 24th when en-US.</returns>
+        </member>
+        <member name="M:Callisto.Converters.DateTimeFormatHelper.GetShortDate(System.DateTime)">
+            <summary>
+            Gets the date in short pattern from a
+            <see cref="T:System.DateTime"/>
+            object.
+            </summary>
+            <param name="dt">Date information.</param>
+            <returns>
+            Date in short pattern as defined by the system locale.
+            </returns>
+        </member>
+        <member name="M:Callisto.Converters.DateTimeFormatHelper.GetShortTime(System.DateTime)">
+            <summary>
+            Gets the time in short pattern from a
+            <see cref="T:System.DateTime"/>
+            object.
+            </summary>
+            <param name="dt">Date information.</param>
+            <returns>
+            Time in short pattern as defined by the system locale.
+            </returns>
+        </member>
+        <member name="T:Callisto.Converters.RelativeTimeConverter">
+            <summary>
+            Time converter to display elapsed time relatively to the present.
+            </summary>
+            <QualityBand>Preview</QualityBand>
+        </member>
+        <member name="F:Callisto.Converters.RelativeTimeConverter.Minute">
+            <summary>
+            A minute defined in seconds.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.RelativeTimeConverter.Hour">
+            <summary>
+            An hour defined in seconds.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.RelativeTimeConverter.Day">
+            <summary>
+            A day defined in seconds.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.RelativeTimeConverter.Week">
+            <summary>
+            A week defined in seconds.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.RelativeTimeConverter.Month">
+            <summary>
+            A month defined in seconds.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.RelativeTimeConverter.Year">
+            <summary>
+            A year defined in seconds.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.RelativeTimeConverter.DefaultCulture">
+            <summary>
+            Abbreviation for the default culture used by resources files.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.RelativeTimeConverter.PluralHourStrings">
+            <summary>
+            Four different strings to express hours in plural.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.RelativeTimeConverter.PluralMinuteStrings">
+            <summary>
+            Four different strings to express minutes in plural.
+            </summary>
+        </member>
+        <member name="F:Callisto.Converters.RelativeTimeConverter.PluralSecondStrings">
+            <summary>
+            Four different strings to express seconds in plural.
+            </summary>
+        </member>
+        <member name="M:Callisto.Converters.RelativeTimeConverter.SetLocalizationCulture(System.Globalization.CultureInfo)">
+            <summary>
+            Resources use the culture in the system locale by default.
+            The converter must use the culture specified the ConverterCulture.
+            The ConverterCulture defaults to en-US when not specified.
+            Thus, change the resources culture only if ConverterCulture is set.
+            </summary>
+            <param name="culture">The culture to use in the converter.</param>
+        </member>
+        <member name="M:Callisto.Converters.RelativeTimeConverter.GetPluralMonth(System.Int32)">
+            <summary>
+            Returns a localized text string to express months in plural.
+            </summary>
+            <param name="month">Number of months.</param>
+            <returns>Localized text string.</returns>
+        </member>
+        <member name="M:Callisto.Converters.RelativeTimeConverter.GetPluralTimeUnits(System.Int32,System.String[])">
+            <summary>
+            Returns a localized text string to express time units in plural.
+            </summary>
+            <param name="units">
+            Number of time units, e.g. 5 for five months.
+            </param>
+            <param name="resources">
+            Resources related to the specified time unit.
+            </param>
+            <returns>Localized text string.</returns>
+        </member>
+        <member name="M:Callisto.Converters.RelativeTimeConverter.GetDayOfWeek(System.DayOfWeek)">
+            <summary>
+            Returns a localized text string for the day of week.
+            </summary>
+            <param name="dow">Day of week.</param>
+            <returns>Localized text string.</returns>
+        </member>
+        <member name="M:Callisto.Converters.RelativeTimeConverter.GetOnDayOfWeek(System.DayOfWeek)">
+            <summary>
+            Returns a localized text string to express "on {0}"
+            where {0} is a day of the week, e.g. Sunday.
+            </summary>
+            <param name="dow">Day of week.</param>
+            <returns>Localized text string.</returns>
+        </member>
+        <member name="M:Callisto.Converters.RelativeTimeConverter.Convert(System.Object,System.Type,System.Object,System.String)">
+            <summary>
+            Converts a 
+            <see cref="T:System.DateTime"/>
+            object into a string the represents the elapsed time 
+            relatively to the present.
+            </summary>
+            <param name="value">The given date and time.</param>
+            <param name="targetType">
+            The type corresponding to the binding property, which must be of
+            <see cref="T:System.String"/>.
+            </param>
+            <param name="parameter">(Not used).</param>
+            <param name="culture">
+            The culture to use in the converter.
+            When not specified, the converter uses the current culture
+            as specified by the system locale.
+            </param>
+            <returns>The given date and time as a string.</returns>
+        </member>
+        <member name="M:Callisto.Converters.RelativeTimeConverter.ConvertBack(System.Object,System.Type,System.Object,System.String)">
+            <summary>
+            Not implemented.
+            </summary>
+            <param name="value">(Not used).</param>
+            <param name="targetType">(Not used).</param>
+            <param name="parameter">(Not used).</param>
+            <param name="culture">(Not used).</param>
+            <returns>null</returns>
+        </member>
+        <member name="P:Callisto.Converters.RelativeTimeConverter.TimeResources">
+            <summary>
+            Wrapper for the ResourceLoader to get the string resources
+            </summary>
+        </member>
+        <member name="P:Callisto.Converters.RelativeTimeConverter.PreferredCulture">
+            <summary>
+            CultureInfo object using the user's preferred language list
+            </summary>
+        </member>
+        <member name="P:Callisto.Converters.RelativeTimeConverter.CurrentLanguageTag">
+            <summary>
+            Gets the current BCP-47 language from the user's language preference list
+            </summary>
+        </member>
+        <member name="T:Callisto.Effects.Tilt">
+            <summary>
+            This code provides attached properties for adding a 'tilt' effect to all 
+            controls within a container.
+            </summary>
+        </member>
+        <member name="F:Callisto.Effects.Tilt.MaxAngle">
+            <summary>
+            Maximum amount of tilt, in radians.
+            </summary>
+        </member>
+        <member name="F:Callisto.Effects.Tilt.MaxDepression">
+            <summary>
+            Maximum amount of depression, in pixels
+            </summary>
+        </member>
+        <member name="F:Callisto.Effects.Tilt._originalCacheMode">
+            <summary>
+            Cache of previous cache modes. Not using weak references for now.
+            </summary>
+        </member>
+        <member name="F:Callisto.Effects.Tilt.TiltReturnAnimationDelay">
+            <summary>
+            Delay between releasing an element and the tilt release animation 
+            playing.
+            </summary>
+        </member>
+        <member name="F:Callisto.Effects.Tilt.TiltReturnAnimationDuration">
+            <summary>
+            Duration of tilt release animation.
+            </summary>
+        </member>
+        <member name="F:Callisto.Effects.Tilt.currentTiltElement">
+            <summary>
+            The control that is currently being tilted.
+            </summary>
+        </member>
+        <member name="F:Callisto.Effects.Tilt.tiltReturnStoryboard">
+            <summary>
+            The single instance of a storyboard used for all tilts.
+            </summary>
+        </member>
+        <member name="F:Callisto.Effects.Tilt.tiltReturnXAnimation">
+            <summary>
+            The single instance of an X rotation used for all tilts.
+            </summary>
+        </member>
+        <member name="F:Callisto.Effects.Tilt.tiltReturnYAnimation">
+            <summary>
+            The single instance of a Y rotation used for all tilts.
+            </summary>
+        </member>
+        <member name="F:Callisto.Effects.Tilt.tiltReturnZAnimation">
+            <summary>
+            The single instance of a Z depression used for all tilts.
+            </summary>
+        </member>
+        <member name="F:Callisto.Effects.Tilt.currentTiltElementCenter">
+            <summary>
+            The center of the tilt element.
+            </summary>
+        </member>
+        <member name="F:Callisto.Effects.Tilt.wasPauseAnimation">
+            <summary>
+            Whether the animation just completed was for a 'pause' or not.
+            </summary>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.#ctor">
+            <summary>
+            This is not a constructable class, but it cannot be static because 
+            it derives from DependencyObject.
+            </summary>
+        </member>
+        <member name="F:Callisto.Effects.Tilt.IsTiltEnabledProperty">
+            <summary>
+            Whether the tilt effect is enabled on a container (and all its 
+            children).
+            </summary>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.GetIsTiltEnabled(Windows.UI.Xaml.DependencyObject)">
+            <summary>
+            Gets the IsTiltEnabled dependency property from an object.
+            </summary>
+            <param name="source">The object to get the property from.</param>
+            <returns>The property's value.</returns>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.SetIsTiltEnabled(Windows.UI.Xaml.DependencyObject,System.Boolean)">
+            <summary>
+            Sets the IsTiltEnabled dependency property on an object.
+            </summary>
+            <param name="source">The object to set the property on.</param>
+            <param name="value">The value to set.</param>
+        </member>
+        <member name="F:Callisto.Effects.Tilt.SuppressTiltProperty">
+            <summary>
+            Suppresses the tilt effect on a single control that would otherwise 
+            be tilted.
+            </summary>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.GetSuppressTilt(Windows.UI.Xaml.DependencyObject)">
+            <summary>
+            Gets the SuppressTilt dependency property from an object.
+            </summary>
+            <param name="source">The object to get the property from.</param>
+            <returns>The property's value.</returns>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.SetSuppressTilt(Windows.UI.Xaml.DependencyObject,System.Boolean)">
+            <summary>
+            Sets the SuppressTilt dependency property from an object.
+            </summary>
+            <param name="source">The object to get the property from.</param>
+            <param name="value">The property's value.</param>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.OnIsTiltEnabledChanged(Windows.UI.Xaml.DependencyObject,Windows.UI.Xaml.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Property change handler for the IsTiltEnabled dependency property.
+            </summary>
+            <param name="target">The element that the property is atteched to.</param>
+            <param name="args">Event arguments.</param>
+            <remarks>
+            Adds or removes event handlers from the element that has been 
+            (un)registered for tilting.
+            </remarks>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.TiltEffect_PointerPressed(System.Object,Windows.UI.Xaml.Input.PointerRoutedEventArgs)">
+            <summary>
+            Event handler for ManipulationStarted.
+            </summary>
+            <param name="sender">sender of the event - this will be the tilt 
+            container (eg, entire page).</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.TiltEffect_PointerMoved(System.Object,Windows.UI.Xaml.Input.PointerRoutedEventArgs)">
+            <summary>
+            Event handler for ManipulationDelta
+            </summary>
+            <param name="sender">sender of the event - this will be the tilting 
+            object (eg a button).</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.TiltEffect_PointerReleased(System.Object,Windows.UI.Xaml.Input.PointerRoutedEventArgs)">
+            <summary>
+            Event handler for ManipulationCompleted.
+            </summary>
+            <param name="sender">sender of the event - this will be the tilting 
+            object (eg a button).</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.TiltEffect_PointerCaptureLost(System.Object,Windows.UI.Xaml.Input.PointerRoutedEventArgs)">
+            <summary>
+            Event handler for PointerCaptureLost
+            </summary>
+            <param name="sender">sender of the event - this will be the tilting 
+            object (eg a button).</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.TryStartTiltEffect(Windows.UI.Xaml.FrameworkElement,Windows.UI.Xaml.Input.PointerRoutedEventArgs)">
+            <summary>
+            Checks if the manipulation should cause a tilt, and if so starts the 
+            tilt effect.
+            </summary>
+            <param name="source">The source of the manipulation (the tilt 
+            container, eg entire page).</param>
+            <param name="e">The args from the ManipulationStarted event.</param>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.GetCenterToCenterDelta(Windows.UI.Xaml.FrameworkElement,Windows.UI.Xaml.FrameworkElement)">
+            <summary>
+            Computes the delta between the centre of an element and its 
+            container.
+            </summary>
+            <param name="element">The element to compare.</param>
+            <param name="container">The element to compare against.</param>
+            <returns>A point that represents the delta between the two centers.</returns>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.BeginTiltEffect(Windows.UI.Xaml.FrameworkElement,Windows.Foundation.Point,Windows.Foundation.Point,Windows.Foundation.Point,Windows.UI.Xaml.Input.Pointer)">
+            <summary>
+            Begins the tilt effect by preparing the control and doing the 
+            initial animation.
+            </summary>
+            <param name="element">The element to tilt.</param>
+            <param name="touchPoint">The touch point, in element coordinates.</param>
+            <param name="centerPoint">The center point of the element in element
+            coordinates.</param>
+            <param name="centerDelta">The delta between the 
+            <paramref name="element"/>'s center and the container's center.</param>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.PrepareControlForTilt(Windows.UI.Xaml.FrameworkElement,Windows.Foundation.Point,Windows.UI.Xaml.Input.Pointer)">
+            <summary>
+            Prepares a control to be tilted by setting up a plane projection and
+            some event handlers.
+            </summary>
+            <param name="element">The control that is to be tilted.</param>
+            <param name="centerDelta">Delta between the element's center and the
+            tilt container's.</param>
+            <returns>true if successful; false otherwise.</returns>
+            <remarks>
+            This method is conservative; it will fail any attempt to tilt a 
+            control that already has a projection on it.
+            </remarks>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.RevertPrepareControlForTilt(Windows.UI.Xaml.FrameworkElement)">
+            <summary>
+            Removes modifications made by PrepareControlForTilt.
+            </summary>
+            <param name="element">THe control to be un-prepared.</param>
+            <remarks>
+            This method is basic; it does not do anything to detect if the 
+            control being un-prepared was previously prepared.
+            </remarks>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.PrepareTiltReturnStoryboard(Windows.UI.Xaml.FrameworkElement)">
+            <summary>
+            Creates the tilt return storyboard (if not already created) and 
+            targets it to the projection.
+            </summary>
+            <param name="element">The framework element to prepare for
+            projection.</param>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.ContinueTiltEffect(Windows.UI.Xaml.FrameworkElement,Windows.UI.Xaml.Input.PointerRoutedEventArgs)">
+            <summary>
+            Continues a tilt effect that is currently applied to an element, 
+            presumably because the user moved their finger.
+            </summary>
+            <param name="element">The element being tilted.</param>
+            <param name="e">The manipulation event args.</param>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.EndTiltEffect(Windows.UI.Xaml.FrameworkElement)">
+            <summary>
+            Ends the tilt effect by playing the animation.
+            </summary>
+            <param name="element">The element being tilted.</param>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.TiltReturnStoryboard_Completed(System.Object,System.Object)">
+            <summary>
+            Handler for the storyboard complete event.
+            </summary>
+            <param name="sender">sender of the event.</param>
+            <param name="e">event args.</param>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.ResetTiltEffect(Windows.UI.Xaml.FrameworkElement)">
+            <summary>
+            Resets the tilt effect on the control, making it appear 'normal'
+            again.
+            </summary>
+            <param name="element">The element to reset the tilt on.</param>
+            <remarks>
+            This method doesn't turn off the tilt effect or cancel any current
+            manipulation; it just temporarily cancels the effect.
+            </remarks>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.StopTiltReturnStoryboardAndCleanup">
+            <summary>
+            Stops the tilt effect and release resources applied to the currently
+            tilted control.
+            </summary>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.PauseTiltEffect">
+            <summary>
+            Pauses the tilt effect so that the control returns to the 'at rest'
+            position, but doesn't stop the tilt effect (handlers are still 
+            attached).
+            </summary>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.ResetTiltReturnStoryboard">
+            <summary>
+            Resets the storyboard to not running.
+            </summary>
+        </member>
+        <member name="M:Callisto.Effects.Tilt.ApplyTiltEffect(Windows.UI.Xaml.FrameworkElement,Windows.Foundation.Point,Windows.Foundation.Point)">
+            <summary>
+            Applies the tilt effect to the control.
+            </summary>
+            <param name="element">the control to tilt.</param>
+            <param name="touchPoint">The touch point, in the container's 
+            coordinates.</param>
+            <param name="centerPoint">The center point of the container.</param>
+        </member>
+        <member name="T:Callisto.Effects.TreeHelpers">
+            <summary>
+            Couple of simple helpers for walking the visual tree.
+            </summary>
+        </member>
+        <member name="M:Callisto.Effects.TreeHelpers.GetVisualAncestors(Windows.UI.Xaml.FrameworkElement)">
+            <summary>
+            Gets the ancestors of the element, up to the root.
+            </summary>
+            <param name="node">The element to start from.</param>
+            <returns>An enumerator of the ancestors.</returns>
+        </member>
+        <member name="M:Callisto.Effects.TreeHelpers.GetVisualParent(Windows.UI.Xaml.FrameworkElement)">
+            <summary>
+            Gets the visual parent of the element.
+            </summary>
+            <param name="node">The element to check.</param>
+            <returns>The visual parent.</returns>
+        </member>
+        <member name="M:Callisto.NumericExtensions.IsNaN(System.Double)">
+            <summary>
+            Check if a number isn't really a number.
+            </summary>
+            <param name="value">The number to check.</param>
+            <returns>
+            True if the number is not a number, false if it is a number.
+            </returns>
+        </member>
+        <member name="M:Callisto.NumericExtensions.IsGreaterThan(System.Double,System.Double)">
+            <summary>
+            Determine if one number is greater than another.
+            </summary>
+            <param name="left">First number.</param>
+            <param name="right">Second number.</param>
+            <returns>
+            True if the first number is greater than the second, false
+            otherwise.
+            </returns>
+        </member>
+        <member name="M:Callisto.NumericExtensions.AreClose(System.Double,System.Double)">
+            <summary>
+            Determine if two numbers are close in value.
+            </summary>
+            <param name="left">First number.</param>
+            <param name="right">Second number.</param>
+            <returns>
+            True if the first number is close in value to the second, false
+            otherwise.
+            </returns>
+        </member>
+        <member name="T:Callisto.NumericExtensions.NanUnion">
+            <summary>
+            NanUnion is a C++ style type union used for efficiently converting
+            a double into an unsigned long, whose bits can be easily
+            manipulated.
+            </summary>
+        </member>
+        <member name="F:Callisto.NumericExtensions.NanUnion.FloatingValue">
+            <summary>
+            Floating point representation of the union.
+            </summary>
+        </member>
+        <member name="F:Callisto.NumericExtensions.NanUnion.IntegerValue">
+            <summary>
+            Integer representation of the union.
+            </summary>
+        </member>
+        <member name="T:Callisto.WebViewExtension">
+            <summary>
+            Useful extensions for the WebBrowser class.
+            </summary>
+        </member>
+        <member name="M:Callisto.WebViewExtension.GetHtmlSource(Windows.UI.Xaml.Controls.WebView)">
+            <summary>
+            Gets the value of the StringSource attached dependency property.
+            </summary>
+            <param name="browser">WebBrowser instance for which to get the value.</param>
+            <returns>Value of the property.</returns>
+        </member>
+        <member name="M:Callisto.WebViewExtension.SetHtmlSource(Windows.UI.Xaml.Controls.WebView,System.String)">
+            <summary>
+            Sets the value of the StringSource attached dependency property.
+            </summary>
+            <param name="browser">WebBrowser instance for which to set the value.</param>
+            <param name="value">Value to set.</param>
+        </member>
+        <member name="F:Callisto.WebViewExtension.HtmlSourceProperty">
+            <summary>
+            Defines the StringSource attached dependency property for the WebBrowser class.
+            </summary>
+        </member>
+        <member name="M:Callisto.WebViewExtension.OnHtmlSourcePropertyChanged(Windows.UI.Xaml.DependencyObject,Windows.UI.Xaml.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Handles changes to the StringSource attached dependency property.
+            </summary>
+            <param name="o">Instance for which the property changed.</param>
+            <param name="e">Property change information.</param>
+        </member>
+        <member name="F:Callisto.OAuth.OAuthTools._encoding">
+            <summary>
+            All text parameters are UTF-8 encoded (per section 5.1).
+            </summary>
+            <seealso cref="!:http://www.hueniverse.com/hueniverse/2008/10/beginners-gui-1.html"/> 
+        </member>
+        <member name="M:Callisto.OAuth.OAuthTools.GetNonce">
+            <summary>
+            Generates a random 16-byte lowercase alphanumeric string. 
+            </summary>
+            <seealso cref="!:http://oauth.net/core/1.0#nonce"/>
+            <returns></returns>
+        </member>
+        <member name="M:Callisto.OAuth.OAuthTools.GetTimestamp">
+            <summary>
+            Generates a timestamp based on the current elapsed seconds since '01/01/1970 0000 GMT"
+            </summary>
+            <seealso cref="!:http://oauth.net/core/1.0#nonce"/>
+            <returns></returns>
+        </member>
+        <member name="M:Callisto.OAuth.OAuthTools.GetTimestamp(System.DateTime)">
+            <summary>
+            Generates a timestamp based on the elapsed seconds of a given time since '01/01/1970 0000 GMT"
+            </summary>
+            <seealso cref="!:http://oauth.net/core/1.0#nonce"/>
+            <param name="dateTime">A specified point in time.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Callisto.OAuth.OAuthTools.UrlEncodeRelaxed(System.String)">
+            <summary>
+            URL encodes a string based on section 5.1 of the OAuth spec.
+            Namely, percent encoding with [RFC3986], avoiding unreserved characters,
+            upper-casing hexadecimal characters, and UTF-8 encoding for text value pairs.
+            </summary>
+            <param name="value"></param>
+            <seealso cref="!:http://oauth.net/core/1.0#encoding_parameters"/>
+        </member>
+        <member name="M:Callisto.OAuth.OAuthTools.UrlEncodeStrict(System.String)">
+            <summary>
+            URL encodes a string based on section 5.1 of the OAuth spec.
+            Namely, percent encoding with [RFC3986], avoiding unreserved characters,
+            upper-casing hexadecimal characters, and UTF-8 encoding for text value pairs.
+            </summary>
+            <param name="value"></param>
+            <seealso cref="!:http://oauth.net/core/1.0#encoding_parameters"/>
+        </member>
+        <member name="M:Callisto.OAuth.OAuthTools.NormalizeRequestParameters(Callisto.OAuth.WebParameterCollection)">
+            <summary>
+            Sorts a collection of key-value pairs by name, and then value if equal,
+            concatenating them into a single string. This string should be encoded
+            prior to, or after normalization is run.
+            </summary>
+            <seealso cref="!:http://oauth.net/core/1.0#rfc.section.9.1.1"/>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Callisto.OAuth.OAuthTools.SortParametersExcludingSignature(Callisto.OAuth.WebParameterCollection)">
+            <summary>
+            Sorts a <see cref="T:Callisto.OAuth.WebParameterCollection"/> by name, and then value if equal.
+            </summary>
+            <param name="parameters">A collection of parameters to sort</param>
+            <returns>A sorted parameter collection</returns>
+        </member>
+        <member name="M:Callisto.OAuth.OAuthTools.ConstructRequestUrl(System.Uri)">
+            <summary>
+            Creates a request URL suitable for making OAuth requests.
+            Resulting URLs must exclude port 80 or port 443 when accompanied by HTTP and HTTPS, respectively.
+            Resulting URLs must be lower case.
+            </summary>
+            <seealso cref="!:http://oauth.net/core/1.0#rfc.section.9.1.2"/>
+            <param name="url">The original request URL</param>
+            <returns></returns>
+        </member>
+        <member name="M:Callisto.OAuth.OAuthTools.ConcatenateRequestElements(Callisto.OAuth.WebMethod,System.String,Callisto.OAuth.WebParameterCollection)">
+            <summary>
+            Creates a request elements concatentation value to send with a request. 
+            This is also known as the signature base.
+            </summary>
+            <seealso cref="!:http://oauth.net/core/1.0#rfc.section.9.1.3"/>
+            <seealso cref="!:http://oauth.net/core/1.0#sig_base_example"/>
+            <param name="method">The request's HTTP method type</param>
+            <param name="url">The request URL</param>
+            <param name="parameters">The request's parameters</param>
+            <returns>A signature base string</returns>
+        </member>
+        <member name="M:Callisto.OAuth.OAuthTools.GetSignature(Callisto.OAuth.OAuthSignatureMethod,System.String,System.String)">
+            <summary>
+            Creates a signature value given a signature base and the consumer secret.
+            This method is used when the token secret is currently unknown.
+            </summary>
+            <seealso cref="!:http://oauth.net/core/1.0#rfc.section.9.2"/>
+            <param name="signatureMethod">The hashing method</param>
+            <param name="signatureBase">The signature base</param>
+            <param name="consumerSecret">The consumer key</param>
+            <returns></returns>
+        </member>
+        <member name="M:Callisto.OAuth.OAuthTools.GetSignature(Callisto.OAuth.OAuthSignatureMethod,Callisto.OAuth.OAuthSignatureTreatment,System.String,System.String)">
+            <summary>
+            Creates a signature value given a signature base and the consumer secret.
+            This method is used when the token secret is currently unknown.
+            </summary>
+            <seealso cref="!:http://oauth.net/core/1.0#rfc.section.9.2"/>
+            <param name="signatureMethod">The hashing method</param>
+            <param name="signatureTreatment">The treatment to use on a signature value</param>
+            <param name="signatureBase">The signature base</param>
+            <param name="consumerSecret">The consumer key</param>
+            <returns></returns>
+        </member>
+        <member name="M:Callisto.OAuth.OAuthTools.GetSignature(Callisto.OAuth.OAuthSignatureMethod,System.String,System.String,System.String)">
+            <summary>
+            Creates a signature value given a signature base and the consumer secret and a known token secret.
+            </summary>
+            <seealso cref="!:http://oauth.net/core/1.0#rfc.section.9.2"/>
+            <param name="signatureMethod">The hashing method</param>
+            <param name="signatureBase">The signature base</param>
+            <param name="consumerSecret">The consumer secret</param>
+            <param name="tokenSecret">The token secret</param>
+            <returns></returns>
+        </member>
+        <member name="M:Callisto.OAuth.OAuthTools.GetSignature(Callisto.OAuth.OAuthSignatureMethod,Callisto.OAuth.OAuthSignatureTreatment,System.String,System.String,System.String)">
+            <summary>
+            Creates a signature value given a signature base and the consumer secret and a known token secret.
+            </summary>
+            <seealso cref="!:http://oauth.net/core/1.0#rfc.section.9.2"/>
+            <param name="signatureMethod">The hashing method</param>
+            <param name="signatureTreatment">The treatment to use on a signature value</param>
+            <param name="signatureBase">The signature base</param>
+            <param name="consumerSecret">The consumer secret</param>
+            <param name="tokenSecret">The token secret</param>
+            <returns></returns>
+        </member>
+        <member name="T:Callisto.Controls.SettingsManagement.AppSettings">
+            <summary>
+            Provides methods and properties allowing a Windows Store app to easily
+            implement the settings contract.
+            </summary>
+        </member>
+        <member name="T:Callisto.Controls.SettingsManagement.INotifySettingChanged">
+            <summary>
+            Notifies clients that a setting value has changed.
+            </summary>
+        </member>
+        <member name="E:Callisto.Controls.SettingsManagement.INotifySettingChanged.SettingChanged">
+            <summary>
+            Occurs when a setting value changes.
+            </summary>
+        </member>
+        <member name="M:Callisto.Controls.SettingsManagement.AppSettings.AddCommand``1(System.String,Callisto.Controls.SettingsFlyout.SettingsFlyoutWidth)">
+            <summary>
+            Add a <see cref="T:Windows.UI.Xaml.Controls.UserControl"/> to the settings contract using the specified header.
+            </summary>
+            <typeparam name="T">A <see cref="T:Windows.UI.Xaml.Controls.UserControl"/> which represents the content for the settings flyout.</typeparam>
+            <param name="headerText">The header to be displayed in the Settings charm.</param>
+            <param name="width">(Optional) The width of the settings flyout. The default is <see cref="F:Callisto.Controls.SettingsFlyout.SettingsFlyoutWidth.Narrow">SettingsFlyout.SettingsFlyoutWidth.Narrow</see></param>
+        </member>
+        <member name="M:Callisto.Controls.SettingsManagement.AppSettings.SignalSettingChanged(System.String)">
+            <summary>
+            Raises the <see cref="E:Callisto.Controls.SettingsManagement.INotifySettingChanged.SettingChanged"/> event.
+            </summary>
+            <param name="settingName">(Optional) The name of the setting which changed.</param>
+        </member>
+        <member name="E:Callisto.Controls.SettingsManagement.AppSettings.SettingChanged">
+            <summary>
+            Occurs when a setting value changes.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.SettingsManagement.AppSettings.ContentBackgroundBrush">
+            <summary>
+            Gets or sets the background brush for the content area of the settings flyout.
+            </summary>
+            <value>The <see cref="T:Windows.UI.Xaml.Media.SolidColorBrush"/> for the background of the content area of the settings flyout.</value>
+        </member>
+        <member name="P:Callisto.Controls.SettingsManagement.AppSettings.Current">
+            <summary>
+            Provides access to the app settings contract.
+            </summary>
+            <value>The app settings contract.</value>
+        </member>
+        <member name="P:Callisto.Controls.SettingsManagement.AppSettings.VisualElements">
+            <summary>
+            Gets a <see cref="T:Callisto.Controls.Common.VisualElement"/> instance which contains specific
+            information from the application manifest.
+            </summary>
+        </member>
+        <member name="T:Callisto.Controls.SettingsManagement.ISettingsCommandInfo">
+            <summary>
+            Represents the information for a <see cref="T:Callisto.Controls.SettingsManagement.SettingsCommandInfo`1"/>.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.SettingsManagement.ISettingsCommandInfo.HeaderText">
+            <summary>
+            Gets the header of the settings command to display in the Settings charm.
+            </summary>
+            <value>The header of the settings command.</value>
+        </member>
+        <member name="P:Callisto.Controls.SettingsManagement.ISettingsCommandInfo.Instance">
+            <summary>
+            Gets the instantiated <see cref="T:Windows.UI.Xaml.Controls.UserControl"/> instance which represents
+            the content of the settings flyout.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.SettingsManagement.ISettingsCommandInfo.Width">
+            <summary>
+            Gets the width of the settings flyout.
+            </summary>
+            <value>The width of the settings flyout.</value>
+        </member>
+        <member name="T:Callisto.Controls.SettingsManagement.SettingChangedEventArgs">
+            <summary>
+            Provides data for the <see cref="E:Callisto.Controls.SettingsManagement.INotifySettingChanged.SettingChanged"/>
+            event.</summary>
+        </member>
+        <member name="M:Callisto.Controls.SettingsManagement.SettingChangedEventArgs.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Callisto.Controls.SettingsManagement.SettingChangedEventArgs"/>
+            class.</summary>
+            <param name="settingName">The name of the setting that changed.</param>
+        </member>
+        <member name="P:Callisto.Controls.SettingsManagement.SettingChangedEventArgs.SettingName">
+            <summary>
+            Gets the name of the setting that changed.
+            </summary>
+            <returns>The name of the setting that changed.</returns>
+        </member>
+        <member name="T:Callisto.Controls.SettingsManagement.SettingsCommandInfo`1">
+            <summary>
+            Represents the information for a <see cref="T:Callisto.Controls.SettingsManagement.SettingsCommandInfo`1"/>.
+            </summary>
+            <typeparam name="T">A <see cref="T:Windows.UI.Xaml.Controls.UserControl"/> which represents the content for the settings flyout.</typeparam>
+        </member>
+        <member name="P:Callisto.Controls.SettingsManagement.SettingsCommandInfo`1.HeaderText">
+            <summary>
+            Gets the header of the settings command to display in the Settings charm.
+            </summary>
+            <value>The header of the settings command.</value>
+        </member>
+        <member name="P:Callisto.Controls.SettingsManagement.SettingsCommandInfo`1.Instance">
+            <summary>
+            Gets the instantiated <see cref="T:Windows.UI.Xaml.Controls.UserControl"/> instance which represents
+            the content of the settings flyout.
+            </summary>
+        </member>
+        <member name="P:Callisto.Controls.SettingsManagement.SettingsCommandInfo`1.Width">
+            <summary>
+            Gets the width of the settings flyout.
+            </summary>
+            <value>The width of the settings flyout.</value>
+        </member>
+    </members>
+</doc>

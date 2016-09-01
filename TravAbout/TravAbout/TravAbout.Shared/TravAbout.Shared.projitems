@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>49696f93-92a7-4588-b5d7-7d95560be5af</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>TravAbout</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Auth\EventbriteAutheticator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Auth\FacebookAuthenticator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Auth\IAuthHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BusinessRules\MainViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BusinessRules\UserProfileViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\BindableBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\NavigationHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ObservableDictionary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\RelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\NotificationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Utils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Communication\WebSocketCommunicator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataModel\AppCredentialStorage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataModel\AuthenticationType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataModel\FacebookAutheticationType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataModel\ICredentialStorage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataModel\Option.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataModel\SampleDataSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataModel\UserProfileData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Geo\TravAppGeoProcessor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Identity\FacebookIdentity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Identity\IOnlineIdentity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\InterestsOptionsSelection.xaml.cs">
+      <DependentUpon>InterestsOptionsSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ItemsPage.xaml.cs">
+      <DependentUpon>ItemsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SplitPage.xaml.cs">
+      <DependentUpon>SplitPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SuggestRouteAndFeedbackPage.xaml.cs">
+      <DependentUpon>SuggestRouteAndFeedbackPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\UserProfile.xaml.cs">
+      <DependentUpon>UserProfile.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)CommonAssets\DarkGray.png" />
+    <Content Include="$(MSBuildThisFileDirectory)CommonAssets\Facebook.png" />
+    <Content Include="$(MSBuildThisFileDirectory)CommonAssets\LightGray.png" />
+    <Content Include="$(MSBuildThisFileDirectory)CommonAssets\MediumGray.png" />
+    <Content Include="$(MSBuildThisFileDirectory)DataModel\PlacesData.json" />
+    <Content Include="$(MSBuildThisFileDirectory)Geo\BestRoute.html" />
+    <Content Include="$(MSBuildThisFileDirectory)Geo\CurrentLocationStatic.html" />
+    <Content Include="$(MSBuildThisFileDirectory)Geo\CurrentLocation.html" />
+    <Content Include="$(MSBuildThisFileDirectory)Geo\SuggestedRoute.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Views\InterestsOptionsSelection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\ItemsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\SplitPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\SuggestRouteAndFeedbackPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\UserProfile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+</Project>

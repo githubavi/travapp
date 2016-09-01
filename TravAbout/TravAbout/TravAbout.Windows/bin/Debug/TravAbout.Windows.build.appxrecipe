@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>WINDOWS81</Machine>
+    <WindowsUser>win8admin</WindowsUser>
+    <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
+    <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
+    <PackageArchitecture>neutral</PackageArchitecture>
+    <PackageIdentityName>49b01538-93cd-43fe-9ab2-e73cd9ca9921</PackageIdentityName>
+    <IntermediateOutputPath>C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\obj\Debug\</IntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\TravAbout.Windows.exe">
+      <PackagePath>TravAbout.Windows.exe</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Program Files\Microsoft SDKs\Windows\v8.1\ExtensionSDKs\AdDuplex.Win.Extension\8.5.0.5\References\CommonConfiguration\neutral\AdDuplex.Universal.Controls.Win.XAML.winmd">
+      <PackagePath>AdDuplex.Universal.Controls.Win.XAML.winmd</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Program Files\Microsoft SDKs\Windows\v8.1\ExtensionSDKs\AdDuplex.Win.Extension\8.5.0.5\References\CommonConfiguration\neutral\AdDuplex.Universal.Win.WinRT.winmd">
+      <PackagePath>AdDuplex.Universal.Win.WinRT.winmd</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Program Files\Microsoft SDKs\Windows\v8.1\ExtensionSDKs\Callisto\1.4.0\References\CommonConfiguration\neutral\Callisto.dll">
+      <PackagePath>Callisto.dll</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Program Files\Microsoft SDKs\Windows\v8.1\ExtensionSDKs\AdDuplex.Win.Extension\8.5.0.5\Redist\CommonConfiguration\neutral\AdDuplex.Universal.Controls.Win.XAML\Themes\Generic.xbf">
+      <PackagePath>AdDuplex.Universal.Controls.Win.XAML\Themes\Generic.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Program Files\Microsoft SDKs\Windows\v8.1\ExtensionSDKs\Callisto\1.4.0\Redist\CommonConfiguration\neutral\Themes\Generic.xbf">
+      <PackagePath>Callisto\Themes\Generic.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\Assets\Logo.scale-100.png">
+      <PackagePath>Assets\Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\Assets\splash.scale-100.png">
+      <PackagePath>Assets\splash.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\Assets\TravAboutStoreLogo.scale-100.png">
+      <PackagePath>Assets\TravAboutStoreLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\Assets\TravAboutSmallLogo.scale-100.png">
+      <PackagePath>Assets\TravAboutSmallLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\Assets\TravAboutLogo.scale-100.png">
+      <PackagePath>Assets\TravAboutLogo.scale-100.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Shared\CommonAssets\DarkGray.png">
+      <PackagePath>CommonAssets\DarkGray.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Shared\CommonAssets\Facebook.png">
+      <PackagePath>CommonAssets\Facebook.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Shared\CommonAssets\LightGray.png">
+      <PackagePath>CommonAssets\LightGray.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Shared\CommonAssets\MediumGray.png">
+      <PackagePath>CommonAssets\MediumGray.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Shared\DataModel\PlacesData.json">
+      <PackagePath>DataModel\PlacesData.json</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Shared\Geo\BestRoute.html">
+      <PackagePath>Geo\BestRoute.html</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Shared\Geo\CurrentLocationStatic.html">
+      <PackagePath>Geo\CurrentLocationStatic.html</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Shared\Geo\CurrentLocation.html">
+      <PackagePath>Geo\CurrentLocation.html</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Shared\Geo\SuggestedRoute.html">
+      <PackagePath>Geo\SuggestedRoute.html</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\App.xbf">
+      <PackagePath>App.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\Views\InterestsOptionsSelection.xbf">
+      <PackagePath>Views\InterestsOptionsSelection.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\Views\ItemsPage.xbf">
+      <PackagePath>Views\ItemsPage.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\Views\SplitPage.xbf">
+      <PackagePath>Views\SplitPage.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\Views\SuggestRouteAndFeedbackPage.xbf">
+      <PackagePath>Views\SuggestRouteAndFeedbackPage.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\Views\UserProfile.xbf">
+      <PackagePath>Views\UserProfile.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\MainPage.xbf">
+      <PackagePath>MainPage.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\TravAbout.Windows.xr.xml">
+      <PackagePath>TravAbout.Windows.xr.xml</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

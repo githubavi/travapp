@@ -1,0 +1,112 @@
+﻿<Page
+  x:Name="pageRoot"
+    x:Class="TravAbout.Views.InterestsOptionsSelection"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TravAbout.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:ConnectionId='1' Icon="World" Label="Explore" AutomationProperties.Name="Explore" x:Name="exploreButton"                            />
+                <AppBarButton Icon="Message" Label="Chat" AutomationProperties.Name="Chat" x:Name="chatButton">
+                    <AppBarButton.Flyout>
+                        <Flyout x:ConnectionId='3' Placement="Right" x:Name="chatFlyout"                                                      >
+                            <Grid Width="300" Height="500">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"  />
+                                    <RowDefinition Height="15*"  />
+                                    <RowDefinition Height="10*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock x:Name="txtChatDisplay" Grid.Row="0"/>
+                                <TextBox x:Name="txtChatInput" Grid.Row="1" PlaceholderText="Enter your comments"
+                                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                                <Button x:ConnectionId='4' HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="chatSendButton" Content="Send" Grid.Row="2"                             />
+                            </Grid>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton x:ConnectionId='2'  Icon="Home" AutomationProperties.Name="Home" Label="Home" x:Name="homeButton"                         />
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Icon="Important" AutomationProperties.Name="Emergency" Label="Emergency">
+                    <AppBarButton.Flyout>
+                        <Flyout Placement="Full" x:Name="emergencyFlyout">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" MinHeight="506" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBox Grid.Row="0" FontSize="16" TextWrapping="Wrap" IsReadOnly="True"
+                                           TextAlignment="Center" MaxWidth="{Binding ActualWidth, ElementName=col1}"
+                                           Text="Please press OK to for any Emergency / Urgent Help. We will try to help you with top most priority. Also the fellow TravAbout users at your location will be notified" Margin="0,-1,0,1"/>
+                                <Grid Grid.Row="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <TextBox Grid.Row="0" PlaceholderText="Enter your mobile no." Width="250" Height="50" x:Name="txtMobNo" />
+                                    <Button x:ConnectionId='6' Grid.Row="1" Content="OK" Width="100" Height="50"  HorizontalAlignment="Center" VerticalAlignment="Center"                      />
+                                </Grid>
+                            </Grid>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton x:ConnectionId='5' Icon="PostUpdate" Label="Pending Reviews" AutomationProperties.Name="Pending Reviews" x:Name="pendingReviewButton"                                   />
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="140"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Back button and page title -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="120"/>
+            </Grid.ColumnDefinitions>
+            <AppBarButton x:Name="backButton" Margin="20,40,0,0" 
+                    Command="{Binding NavigationHelper.GoBackCommand, ElementName=pageRoot}"
+                        Icon="Back" Grid.Column="0"
+                        VerticalAlignment="Top"
+                        AutomationProperties.Name="Back"
+                        AutomationProperties.AutomationId="BackButton"
+                        AutomationProperties.ItemType="Navigation Button"/>
+            <AppBarButton x:ConnectionId='7' Icon="Forward" Name="btnNext" Grid.Column="2"                      
+                      AutomationProperties.Name="Forward" Margin="0,40,0,0"
+                        AutomationProperties.AutomationId="ForwardButton"
+                        AutomationProperties.ItemType="Navigation Button" Width="106"/>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" x:Name="OptionsScroller">
+            <StackPanel Orientation="Vertical">
+                <ListView x:Name="Interests"
+                         SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Left" Width="250" Height="125">
+                                <StackPanel VerticalAlignment="Top" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
+                                    <TextBlock Text="{Binding GroupName}" />
+                                    <ToggleSwitch OffContent="Not Interested" OnContent="Interested" IsOn="{Binding IsInterested, Mode=TwoWay}"></ToggleSwitch>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapGrid FlowDirection="LeftToRight" MaximumRowsOrColumns="11" Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+                
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
+

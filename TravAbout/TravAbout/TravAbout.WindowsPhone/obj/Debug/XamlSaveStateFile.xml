@@ -1,0 +1,7 @@
+<XamlCompilerSaveState>
+  <ReferenceAssemblyList>
+    <LocalAssembly PathName="c:\mobileapps\travabout\travabout\travabout.windowsphone\obj\debug\intermediatexaml\travabout.windowsphone.exe" HashGuid="de51f6d2-9627-e59c-0c48-4db91d7254e9" />
+    <ReferenceAssembly PathName="c:\program files\microsoft sdks\windowsphoneapp\v8.1\extensionsdks\adduplex.winphone.extension\8.5.0.5\references\commonconfiguration\neutral\adduplex.universal.controls.winphone.xaml.winmd" HashGuid="041cc2c9-303b-df60-bba2-bb71a4933fb4" />
+    <ReferenceAssembly PathName="c:\program files\microsoft sdks\windowsphoneapp\v8.1\extensionsdks\adduplex.winphone.extension\8.5.0.5\references\commonconfiguration\neutral\adduplex.universal.winphone.winrt.winmd" HashGuid="19115a1c-7d72-4425-8ed4-9bcdb868c955" />
+  </ReferenceAssemblyList>
+</XamlCompilerSaveState>

@@ -1,0 +1,78 @@
+﻿<Page
+    x:Class="TravAbout.Views.UserProfile"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TravAbout.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton Icon="World" Label="Explore" AutomationProperties.Name="Explore" x:Name="exploreButton" Click="exploreButton_Click"/>
+                <AppBarButton Icon="Message" Label="Chat" AutomationProperties.Name="Chat" x:Name="chatButton">
+                    <AppBarButton.Flyout>
+                        <Flyout Placement="Right" x:Name="chatFlyout" Opened="chatFlyout_Opened" Closed="chatFlyout_Closed">
+                            <Grid Width="300" Height="500">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"  />
+                                    <RowDefinition Height="15*"  />
+                                    <RowDefinition Height="10*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock x:Name="txtChatDisplay" Grid.Row="0"/>
+                                <TextBox x:Name="txtChatInput" Grid.Row="1" PlaceholderText="Enter your comments"
+                                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                                <Button HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="chatSendButton" Content="Send" Grid.Row="2" Click="chatSendButton_Click"/>
+                            </Grid>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton  Icon="Home" AutomationProperties.Name="Home" Label="Home" x:Name="homeButton" Click="homeButton_Click"/>
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Icon="Important" AutomationProperties.Name="Emergency" Label="Emergency">
+                    <AppBarButton.Flyout>
+                        <Flyout Placement="Full" x:Name="emergencyFlyout">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" MinHeight="506" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBox Grid.Row="0" FontSize="16" TextWrapping="Wrap" IsReadOnly="True"
+                                           TextAlignment="Center" MaxWidth="{Binding ActualWidth, ElementName=col1}"
+                                           Text="Please press OK to for any Emergency / Urgent Help. We will try to help you with top most priority. Also the fellow TravAbout users at your location will be notified" Margin="0,-1,0,1"/>
+                                <Grid Grid.Row="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <TextBox Grid.Row="0" PlaceholderText="Enter your mobile no." Width="250" Height="50" x:Name="txtMobNo" />
+                                    <Button Grid.Row="1" Content="OK" Width="100" Height="50"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click" />
+                                </Grid>
+                            </Grid>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton Icon="PostUpdate" Label="Pending Reviews" AutomationProperties.Name="Pending Reviews" x:Name="pendingReviewButton" Click="pendingReviewButton_Click" />
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="-2,0,2,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="12*"/>
+            <RowDefinition Height="43*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Name}" FontSize="25" Name="txtName" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <TextBlock Text="{Binding Email}" Name="txtEmail" FontSize="25" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <TextBlock  Text="{Binding CurrentPlaceName}" Name="txtLocation" FontSize="25" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <AppBarButton Icon="Forward" Name="btnNext" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Click="btnNext_Click"
+                      AutomationProperties.Name="Forward"
+                        AutomationProperties.AutomationId="ForwardButton"
+                        AutomationProperties.ItemType="Navigation Button"/>
+        <WebView x:Name="MapViewer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="4"/>
+        <ProgressRing Name="prDataStatus" IsActive="{Binding IsFetchingData}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="640,26,646,10" Grid.Row="1"/>
+    </Grid>
+</Page>

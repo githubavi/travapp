@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>WINDOWS81</Machine>
+    <WindowsUser>win8admin</WindowsUser>
+    <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
+    <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
+    <PackageArchitecture>neutral</PackageArchitecture>
+    <PackageIdentityName>49b01538-93cd-43fe-9ab2-e73cd9ca9921</PackageIdentityName>
+    <IntermediateOutputPath>C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\obj\Debug\</IntermediateOutputPath>
+    <RegisteredManifestChecksum>AA0D4F954DF72F07B24E37D9272081D1A792815F438298F79005EE8791A03632</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>49b01538-93cd-43fe-9ab2-e73cd9ca9921_1.0.0.0_neutral__1n1q3svytran8</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>49b01538-93cd-43fe-9ab2-e73cd9ca9921_1n1q3svytran8!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>49b01538-93cd-43fe-9ab2-e73cd9ca9921</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=win8admin</RegisteredPackagePublisher>
+    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+    <JitOptimizationSuppressed>True</JitOptimizationSuppressed>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2014-10-17T10:33:29.605</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\TravAbout.Windows.exe">
+      <PackagePath>TravAbout.Windows.exe</PackagePath>
+      <Modified>2014-10-18T15:24:57.315</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Program Files\Microsoft SDKs\Windows\v8.1\ExtensionSDKs\AdDuplex.Win.Extension\8.5.0.5\References\CommonConfiguration\neutral\AdDuplex.Universal.Controls.Win.XAML.winmd">
+      <PackagePath>AdDuplex.Universal.Controls.Win.XAML.winmd</PackagePath>
+      <Modified>2014-08-25T10:53:56.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Program Files\Microsoft SDKs\Windows\v8.1\ExtensionSDKs\AdDuplex.Win.Extension\8.5.0.5\References\CommonConfiguration\neutral\AdDuplex.Universal.Win.WinRT.winmd">
+      <PackagePath>AdDuplex.Universal.Win.WinRT.winmd</PackagePath>
+      <Modified>2014-08-21T11:19:02.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Program Files\Microsoft SDKs\Windows\v8.1\ExtensionSDKs\Callisto\1.4.0\References\CommonConfiguration\neutral\Callisto.dll">
+      <PackagePath>Callisto.dll</PackagePath>
+      <Modified>2014-09-27T17:41:14.477</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Program Files\Microsoft SDKs\Windows\v8.1\ExtensionSDKs\AdDuplex.Win.Extension\8.5.0.5\Redist\CommonConfiguration\neutral\AdDuplex.Universal.Controls.Win.XAML\Themes\Generic.xbf">
+      <PackagePath>AdDuplex.Universal.Controls.Win.XAML\Themes\Generic.xbf</PackagePath>
+      <Modified>2014-08-21T11:19:04.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Program Files\Microsoft SDKs\Windows\v8.1\ExtensionSDKs\Callisto\1.4.0\Redist\CommonConfiguration\neutral\Themes\Generic.xbf">
+      <PackagePath>Callisto\Themes\Generic.xbf</PackagePath>
+      <Modified>2014-09-27T17:41:14.470</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\Assets\Logo.scale-100.png">
+      <PackagePath>Assets\Logo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2014-09-15T10:11:41.771</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\Assets\splash.scale-100.png">
+      <PackagePath>Assets\splash.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2014-09-19T16:03:39.514</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\Assets\TravAboutStoreLogo.scale-100.png">
+      <PackagePath>Assets\TravAboutStoreLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2014-09-15T10:36:27.614</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\Assets\TravAboutSmallLogo.scale-100.png">
+      <PackagePath>Assets\TravAboutSmallLogo.scale-100.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2014-09-15T10:35:21.202</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\Assets\TravAboutLogo.scale-100.png">
+      <PackagePath>Assets\TravAboutLogo.scale-100.png</PackagePath>
+      <Modified>2014-09-15T10:11:41.771</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Shared\CommonAssets\DarkGray.png">
+      <PackagePath>CommonAssets\DarkGray.png</PackagePath>
+      <Modified>2013-07-23T13:01:02.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Shared\CommonAssets\Facebook.png">
+      <PackagePath>CommonAssets\Facebook.png</PackagePath>
+      <Modified>2014-09-19T14:44:48.687</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Shared\CommonAssets\LightGray.png">
+      <PackagePath>CommonAssets\LightGray.png</PackagePath>
+      <Modified>2013-07-23T13:01:02.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Shared\CommonAssets\MediumGray.png">
+      <PackagePath>CommonAssets\MediumGray.png</PackagePath>
+      <Modified>2013-07-23T13:01:02.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Shared\DataModel\PlacesData.json">
+      <PackagePath>DataModel\PlacesData.json</PackagePath>
+      <Modified>2014-10-04T09:47:47.363</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Shared\Geo\BestRoute.html">
+      <PackagePath>Geo\BestRoute.html</PackagePath>
+      <Modified>2014-10-04T09:27:28.182</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Shared\Geo\CurrentLocationStatic.html">
+      <PackagePath>Geo\CurrentLocationStatic.html</PackagePath>
+      <Modified>2014-09-25T17:38:41.677</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Shared\Geo\CurrentLocation.html">
+      <PackagePath>Geo\CurrentLocation.html</PackagePath>
+      <Modified>2014-09-24T16:50:46.206</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Shared\Geo\SuggestedRoute.html">
+      <PackagePath>Geo\SuggestedRoute.html</PackagePath>
+      <Modified>2014-10-01T11:42:18.096</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\App.xbf">
+      <PackagePath>App.xbf</PackagePath>
+      <Modified>2014-10-18T15:18:40.294</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\Views\InterestsOptionsSelection.xbf">
+      <PackagePath>Views\InterestsOptionsSelection.xbf</PackagePath>
+      <Modified>2014-10-18T15:18:40.310</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\Views\ItemsPage.xbf">
+      <PackagePath>Views\ItemsPage.xbf</PackagePath>
+      <Modified>2014-10-18T15:18:40.310</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\Views\SplitPage.xbf">
+      <PackagePath>Views\SplitPage.xbf</PackagePath>
+      <Modified>2014-10-18T15:18:40.310</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\Views\SuggestRouteAndFeedbackPage.xbf">
+      <PackagePath>Views\SuggestRouteAndFeedbackPage.xbf</PackagePath>
+      <Modified>2014-10-18T15:18:40.310</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\Views\UserProfile.xbf">
+      <PackagePath>Views\UserProfile.xbf</PackagePath>
+      <Modified>2014-10-18T15:18:40.310</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\MainPage.xbf">
+      <PackagePath>MainPage.xbf</PackagePath>
+      <Modified>2014-09-27T18:28:53.343</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\TravAbout.Windows.xr.xml">
+      <PackagePath>TravAbout.Windows.xr.xml</PackagePath>
+      <Modified>2014-10-18T15:18:39.450</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\MobileApps\TravAbout\TravAbout\TravAbout.Windows\bin\Debug\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <Modified>2014-10-17T10:33:19.072</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>
